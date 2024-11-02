@@ -1,0 +1,21 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Coments from "@/components/Coments.tsx";
+
+---
+
+<Layout title="Foro">
+    
+    <section class="foro-Section">
+        <Coments client:load></Coments>
+    </section>
+</Layout>
+
+<style>
+    .foro-Section{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 4rem;
+    }
+</style>

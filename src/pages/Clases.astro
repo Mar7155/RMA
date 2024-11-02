@@ -1,0 +1,59 @@
+---
+import Layout from '../layouts/Layout.astro';
+import VideoCard from '../components/VideoCard.astro';
+import VideoGrid from '../components/VideoGrid'
+
+---
+
+<Layout title="Clases">
+	<main>
+        <section class="clases_hero">
+            <h1 class="section_title"></h1>
+            
+            <VideoGrid></VideoGrid>
+
+            <!-- <div class="content_videos">
+                <VideoCard title="titulo" body="descripcion" href='https://www.youtube.com/embed/dQw4w9WgXcQ'></VideoCard>
+                <VideoCard title="titulo" body="descripcion" href='https://www.youtube.com/embed/dQw4w9WgXcQ'></VideoCard>
+                <VideoCard title="titulo" body="descripcion" href='https://www.youtube.com/embed/dQw4w9WgXcQ'></VideoCard>
+                <VideoCard title="titulo" body="descripcion" href='https://www.youtube.com/embed/dQw4w9WgXcQ'></VideoCard>
+                <VideoCard title="titulo" body="descripcion" href='https://www.youtube.com/embed/dQw4w9WgXcQ'></VideoCard>
+                <VideoCard title="titulo" body="descripcion" href='https://www.youtube.com/embed/dQw4w9WgXcQ'></VideoCard>
+            </div> -->
+        </section>
+	</main>
+</Layout>
+
+<style>
+    .clases_hero{
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        justify-content: center;
+        align-items: center;
+        margin: 5rem;
+    }
+    .section_title{
+        font-size: 32px;
+        margin-bottom: 14px;
+    }
+    .content_videos{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        width: 100%;
+        max-width: 1200px;
+    }
+
+    @media (max-width: 768px) {
+        .content_videos {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 480px) {
+        .content_videos {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

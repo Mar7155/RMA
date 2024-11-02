@@ -1,0 +1,118 @@
+---
+import Layout from "../layouts/Layout.astro";
+import TopicsGrid from "@/components/TopicsGrid";
+import ResourceCard from "@/components/ResourceCard.astro";
+import Home from "@/components/Home";
+
+import { sql } from "../lib/neon";
+
+const response = await sql`SELECT NOW() as current_time`;
+const currentTime = response[0].current_time;
+
+console.log(currentTime);
+---
+
+<Layout title="Red Medical Advisor.">
+	<main>
+		<section class="inicio-contenedor">
+			<Home />
+		</section>
+		<section class="inicio-temas">
+			<TopicsGrid />
+		</section>
+
+		<section id="recursos" class="inicio-recursos">
+			<h2>Expande tus conocimientos medicos</h2>
+			<div class="inicio-recursos-grid">
+				<ResourceCard
+					icon="📚"
+					title="Biblioteca Digital"
+					description="Accede a nuestra colección de PDFs y libros médicos cuidadosamente seleccionados"
+					link="/Recursos"
+				/>
+				<ResourceCard
+					icon="🎥"
+					title="Videotutoriales"
+					description="Aprende con nuestros videos explicativos sobre procedimientos y conceptos médicos"
+					link="/Clases"
+				/>
+				<ResourceCard
+					icon="🔬"
+					title="Foro"
+					description="Platica con una comunidad de medicos y expandan juntos sus conocimientos"
+					link="/Foro"
+				/>
+				<ResourceCard
+					icon="👩‍⚕️"
+					title="Tutorías Personalizadas"
+					description="Agenda sesiones one-on-one con expertos en tu área de interés"
+					link="/Tutorias"
+				/>
+			</div>
+		</section>
+	</main>
+</Layout>
+
+<style>
+	main {
+		margin: auto;
+		background-color: #ca3555;
+		color: rgb(0, 0, 0);
+	}
+
+	.inicio-contenedor {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 5rem;
+		width: auto;
+		height: 50vh;
+		color: white;
+	}
+
+	.inicio-contenedor h1 {
+		font-size: 48px;
+		font-weight: 700;
+	}
+	.inicio-contenedor h3 {
+		font-size: 18px;
+		font-weight: 300;
+		color: rgb(231, 231, 231);
+	}
+
+	.inicio-temas {
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+		background-color: #f4f4f5;
+		height: 50vh;
+	}
+
+	.inicio-recursos {
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+		background-color: #f4f4f5;
+		padding-top: 5rem;
+	}
+
+	.inicio-recursos h2 {
+		font-size: 32px;
+		font-weight: bold;
+		margin: 0 auto;
+	}
+
+	.inicio-recursos-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		gap: 2rem;
+		max-width: 1200px;
+		margin: 0 auto;
+		margin-bottom: 5rem;
+		padding: 5rem 10rem;
+	}
+
+	.inicio-temas {
+		padding: 5rem 0rem;
+	}
+</style>

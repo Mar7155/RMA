@@ -1,0 +1,30 @@
+---
+import Navbar from "@/components/Navbar.astro";
+import RecursosGrid from "@/components/Recursos.tsx";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Recursos">
+  <section>
+      <section class="clases_hero">
+        <h1 class="section_title">Recursos</h1>
+      <RecursosGrid client:visible id=""/> 
+  </section>
+</Layout>
+
+<style>
+  .clases_hero{
+      display: flex;
+      flex-direction: column;
+      height: auto;
+      justify-content: center;
+      align-items: center;
+  }
+  .section_title{
+      font-size: 24px;
+      margin-bottom: 14px;
+      color: #333;
+  }
+
+</style>
+

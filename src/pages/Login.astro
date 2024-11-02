@@ -1,0 +1,20 @@
+---
+import LayoutRegister from "@/layouts/LayoutRegister.astro";
+import Log from "@/components/Log";
+---
+
+<LayoutRegister title="Iniciar Sesión">
+    <Log client:load></Log>
+</LayoutRegister>
+
+<style>
+    body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+</style>
