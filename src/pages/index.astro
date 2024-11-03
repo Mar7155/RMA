@@ -3,7 +3,6 @@ import Layout from "../layouts/Layout.astro";
 import TopicsGrid from "@/components/TopicsGrid";
 import ResourceCard from "@/components/ResourceCard.astro";
 import Home from "@/components/Home";
-
 import { sql } from "../lib/neon";
 
 const response = await sql`SELECT NOW() as current_time`;

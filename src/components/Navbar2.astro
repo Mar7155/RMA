@@ -1,4 +1,12 @@
 <header class="contenedor">
+    <div class="login">
+        <a class="in" href="/Login">
+            Iniciar Sesion
+        </a>
+        <a class="reg" href="/Sign">
+            Registrate
+        </a>
+    </div>
     <div class="logo">
         <img
             src="/RMA - SVG.svg"
@@ -79,7 +87,85 @@
     </div>
 </header>
 
+
+
+<script lang="ts">
+    let subMenu = document.getElementById("subMenu");
+    const userIcon = document.querySelector(".user-icon");
+
+    function toggleMenu() {
+        subMenu.classList.toggle("open-menu");
+    }
+
+    document.addEventListener("click", function (event) {
+        if (
+            !userIcon.contains(event.target) &&
+            !subMenu.contains(event.target)
+        ) {
+            subMenu.classList.remove("open-menu");
+        } else if (event.target.closest(".sub-menu-link")) {
+            subMenu.classList.remove("open-menu");
+        }
+    });
+</script>
+
 <style>
+
+.login {
+        display: flex;
+    }
+    .in {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        white-space: nowrap;
+        font-size: 14px;
+        font-weight: 500;
+        height: 2.5rem;
+        border-radius: 8px;
+        background-color: rgb(255, 255, 255);
+        transition: background-color 0.5s;        
+        border: 1px solid #d1d5db;
+        margin-right: 8px;
+        padding: 0rem 1rem;
+    }
+    .reg {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        white-space: nowrap;
+        font-size: 14px;
+        font-weight: 500;
+        height: 2.5rem;
+        border-radius: 8px;
+        background-color: #ff3131;
+        padding: 0rem 1rem;
+        transition: background 0.5s;        
+        color: white;
+    }
+
+    .in:focus-visible {
+        outline: 2px solid #5a67d8; 
+        outline-offset: 2px;
+    }
+
+    .in:disabled {
+        pointer-events: none;
+        opacity: 0.5;
+    }
+
+    .in:hover {
+        background-color: #e2e8f0; 
+        color: #482d2d; 
+    }
+    .reg:hover{
+        background-color: #a72020;
+    }
+
+
+
+
+
     .contenedor {
         display: flex;
         align-items: center;
@@ -97,8 +183,7 @@
     .nav {
         display: inline-flex;
         align-items: center;
-        justify-content: space-around;
-        margin-left: 6rem;
+        justify-content: space-evenly;
         gap: 3rem;
     }
     .nav a {
@@ -289,23 +374,3 @@
         width: 100%;
     }
 </style>
-
-<script lang="ts">
-    let subMenu = document.getElementById("subMenu");
-    const userIcon = document.querySelector(".user-icon");
-
-    function toggleMenu() {
-        subMenu.classList.toggle("open-menu");
-    }
-
-    document.addEventListener("click", function (event) {
-        if (
-            !userIcon.contains(event.target) &&
-            !subMenu.contains(event.target)
-        ) {
-            subMenu.classList.remove("open-menu");
-        } else if (event.target.closest(".sub-menu-link")) {
-            subMenu.classList.remove("open-menu");
-        }
-    });
-</script>

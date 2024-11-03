@@ -14,7 +14,8 @@ const Login: React.FC = () => {
         try {
             const response = await fetch("/api/controllers/login.controller", {
                 method: "POST",
-                body: formData,            
+                body: formData,        
+                credentials: "include",    
             });
     
             if (!response.ok) {
