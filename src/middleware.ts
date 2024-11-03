@@ -50,12 +50,10 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
   // Get the token from cookies 
   const token = context.cookies.get("jwt")?.value;
-  console.log(token);
 
   // Verify the token 
   const validationResult = await verifyAuth(token);
 
-  console.log(validationResult);
 
   // Handle the validation result 
   switch (validationResult.status) {

@@ -19,6 +19,6 @@ const dbConfig: DbConfig = {
 
 export const PUBLIC_ROUTES = ["/", "/Login", "/Sign", "/Clases", "/Recursos", "/api/controllers/login.controller", "/api/controllers/register.controller"];
 
-export const LOGIN_ROUTES = ["/Login", "/Register"]
+export const LOGIN_ROUTES = ["/Login", "/Sign"]
 
 export default dbConfig;
