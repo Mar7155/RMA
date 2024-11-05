@@ -26,8 +26,7 @@ const Login: React.FC = () => {
             
             const resJson = await response.json();
             
-            console.log(response);
-            
+            console.log(response);           
 
             if (resJson.redirect) {
                 window.location.href = resJson.redirect;
@@ -37,6 +36,8 @@ const Login: React.FC = () => {
             }
             if(resJson.user) {
                 setUserData(resJson.user);
+                console.log(resJson.user.nombre);
+                
             }
         } catch (error) {
             setResponseMessage("Error en la conexión");

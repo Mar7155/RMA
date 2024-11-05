@@ -1,45 +1,33 @@
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-import { jwtVerify } from 'jose';
 import LoginsButtons from './ui/loginsButtons';
 import UserInfo from './ui/userInfo';
 
 const Header: React.FC = () => {
+    
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
     useEffect(() => {
-        const token = Cookies.get("jwt");
-        if (token) {
-            verifyToken(token)
-                .then(isValid => setIsLoggedIn(isValid))
-                .catch(() => setIsLoggedIn(false));            
-        }
-    }, []); 
+        const verifyAuth = async () => {
+            try {
+                const response = await fetch('/api/controllers/verify.controller', {
+                    method: 'GET',
+                    credentials: 'include'    
+                })                
+                const data = await response.json();
 
-    const verifyToken = async (token?: string): Promise<boolean> => {
-        if (!token) {
-            return false; 
-        }
-
-        try {
-            const secret = import.meta.env.PUBLIC_JWT_SECRET
-            console.log(secret);
-            
-            const encodedSecret = new TextEncoder().encode(secret); 
-
-            await jwtVerify(token, encodedSecret);
-            return true;
-
-        } catch (err) {
-            if (err instanceof Error) {
-                console.error('Error en la verificación del token:', err.message);
-                return false;
+                if (data.isValid) {
+                    setIsLoggedIn(true)
+                } else {
+                    setIsLoggedIn(false)
+                }
+            } catch (error) {
+                console.error("error al verificar el token: ",error);
+                setIsLoggedIn(false)
             }
-
-            console.debug(err);
-            return false;
-        }
-    };
+        };
+        verifyAuth();
+    }, []); 
 
     return (
         <header className="contenedor">
@@ -60,7 +48,7 @@ const Header: React.FC = () => {
                 <a href="/Tutorias">Tutorias</a>
             </nav>
 
-            {isLoggedIn ? <UserInfo /> : <LoginsButtons />}
+            { isLoggedIn ? <UserInfo /> : <LoginsButtons />}
         </header>
     );
 };

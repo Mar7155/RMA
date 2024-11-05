@@ -48,17 +48,8 @@ export const POST: APIRoute = async ({ request }) => {
         );
         
       }
-      
-      const payload = {user: userToCompare.usuario_id}
 
-      const token = jsonwebtoken.sign(
-        payload, 
-        import.meta.env.JWT_SECRET, 
-        { expiresIn: import.meta.env.JWT_EXPIRATION })
-      
-      const cookieOptions = `Path=/; Max-Age=${import.meta.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60}; SameSite=Strict`
-
-      const usuarioData = {
+      const payload = {
         id: userToCompare.usuario_id,
         nombre: userToCompare.usuario_nombre,
         paterno: userToCompare.usuario_apellido_paterno,        
@@ -67,10 +58,18 @@ export const POST: APIRoute = async ({ request }) => {
         fechaReg: userToCompare.usuario_fechareg
       }
 
+      const token = jsonwebtoken.sign(
+        payload, 
+        import.meta.env.JWT_SECRET, 
+        { expiresIn: import.meta.env.JWT_EXPIRATION })
+      
+      const cookieOptions = `Path=/; Max-Age=${import.meta.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60}; SameSite=Strict; httpOnly`
+
+
       return new Response(
         JSON.stringify({
           message: "Bienvenido ",
-          user: usuarioData,
+          user: payload,
           redirect: "/",
         }),
         { 
