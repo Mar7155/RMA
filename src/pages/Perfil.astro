@@ -1,10 +1,18 @@
 ---
-import Profile from "@/components/Profile.tsx"
-import Layout from "../layouts/Layout.astro"
+import Profile from "@/components/Profile";
+import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Perfil">
     <main>
-        <Profile client:idle></Profile>
+        <section class="Perfil">
+            <Profile client:idle/>
+        </section>
     </main>
 </Layout>
+
+<style>
+    .Perfil{
+        margin-top: 4rem;
+    }
+</style>

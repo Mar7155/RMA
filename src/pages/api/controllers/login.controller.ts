@@ -55,6 +55,7 @@ export const POST: APIRoute = async ({ request }) => {
         paterno: userToCompare.usuario_apellido_paterno,        
         materno: userToCompare.usuario_apellido_materno,
         correo: userToCompare.usuario_correo,
+        plan: userToCompare.planes_id,
         fechaReg: userToCompare.usuario_fechareg
       }
 

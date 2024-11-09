@@ -1,3 +1,9 @@
+:root{
+  --popover-bg: #ffffff; /* Color de fondo del popover */
+  --popover-foreground: #333333; /* Color del texto en el popover */
+  --muted-bg: #f0f0f0;
+}
+
 .principal {
   max-width: 100%;
   display: flex;
@@ -31,7 +37,7 @@
 .container-filtros {
   padding: 20px; 
   width: 100%; 
-  z-index: 10;
+  z-index: 1;
   margin-top: 0;
   box-sizing: border-box; 
 }
@@ -202,4 +208,367 @@
 .btn-outline:hover {
   background-color: transparent;
   border-color: transparent;
+}
+
+.dropDownMenu {
+    position: relative;
+    display: flex;
+    cursor: default;
+    user-select: none;
+    align-items: center;
+    border-radius: 0.125rem;
+    padding-top: 0.375rem; 
+    padding-bottom: 0.375rem; 
+    padding-left: 2rem;
+    padding-right: 0.5rem;
+    font-size: 0.875rem; 
+    outline: none;
+    transition: background-color 0.2s ease, color 0.2s ease; 
+  }
+  
+  .dropDownMenu:focus {
+    background-color: var(--accent);
+    color: var(--accent-foreground);
+  }
+  
+  .dropDownMenu[data-disabled] {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  .SubTrigger {
+    display: flex;
+    cursor: default;
+    gap: 0.5rem; /* gap-2 */
+    user-select: none;
+    align-items: center;
+    border-radius: 0.125rem; /* rounded-sm */
+    padding-left: 0.5rem; /* px-2 */
+    padding-right: 0.5rem; /* px-2 */
+    padding-top: 0.375rem; /* py-1.5 */
+    padding-bottom: 0.375rem; /* py-1.5 */
+    font-size: 0.875rem; /* text-sm */
+    outline: none;
+  }
+  
+  .SubTrigger:focus {
+    background-color: var(--accent); /* focus:bg-accent */
+  }
+  
+  .SubTrigger[data-state="open"] {
+    background-color: var(--accent); /* data-[state=open]:bg-accent */
+  }
+  
+  .SubTrigger svg {
+    pointer-events: none; /* [&_svg]:pointer-events-none */
+    width: 1rem; /* [&_svg]:size-4 (equivalente a 1rem) */
+    height: 1rem; /* [&_svg]:size-4 (equivalente a 1rem) */
+    flex-shrink: 0; /* [&_svg]:shrink-0 */
+  }
+  
+  
+.PrimitiveItem{
+  position: relative;
+  display: flex;
+  cursor: default;
+  user-select: none;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.125rem;
+  padding-left: 0.5rem; 
+  padding-right: 0.5rem;
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem; 
+  font-size: 0.875rem; 
+  outline: none;
+  transition: background-color 0.2s ease, color 0.2s ease; 
+}
+
+.PrimitiveItem:focus {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.PrimitiveItem[data-disabled] {
+  pointer-events: none;
+  opacity: 0.5; 
+}
+
+.PrimitiveItem svg {
+  pointer-events: none; 
+  width: 1rem; 
+  height: 1rem;
+  flex-shrink: 0; 
+}
+
+
+
+.PrimitiveContent {
+  z-index: 50; /* z-50 */
+  min-width: 8rem; /* min-w-[8rem] */
+  overflow: hidden; /* overflow-hidden */
+  border-radius: 0.375rem; /* rounded-md */
+  border: 1px solid; /* border */
+  background-color: var(--popover-bg); /* bg-popover */
+  padding: 0.25rem; /* p-1 */
+  color: var(--popover-foreground); /* text-popover-foreground */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-md */
+}
+
+/* Animaciones y transiciones basadas en el estado */
+.PrimitiveContent[data-state="open"] {
+  animation: fadeIn 0.3s ease-in-out, zoomIn 0.3s ease-in-out;
+}
+
+.PrimitiveContent[data-state="closed"] {
+  animation: fadeOut 0.3s ease-in-out, zoomOut 0.3s ease-in-out;
+}
+
+/* Desaparecer (fade-out) y aparecer (fade-in) */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Efectos de zoom */
+@keyframes zoomIn {
+  0% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes zoomOut {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.95);
+  }
+}
+
+/* Efectos de deslizamiento en función de la posición (side) */
+.PrimitiveContent[data-side="bottom"] {
+  animation: slideInFromTop 0.3s ease-in-out;
+}
+
+.PrimitiveContent[data-side="left"] {
+  animation: slideInFromRight 0.3s ease-in-out;
+}
+
+.PrimitiveContent[data-side="right"] {
+  animation: slideInFromLeft 0.3s ease-in-out;
+}
+
+.PrimitiveContent[data-side="top"] {
+  animation: slideInFromBottom 0.3s ease-in-out;
+}
+
+/* Animaciones de deslizamiento */
+@keyframes slideInFromTop {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromBottom {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/***********************************/
+.ItemIndicatorBox {
+  position: absolute; /* absolute */
+  left: 0.5rem; /* left-2 (equivale a 0.5rem) */
+  display: flex; /* flex */
+  height: 0.875rem; /* h-3.5 (equivale a 0.875rem) */
+  width: 0.875rem; /* w-3.5 (equivale a 0.875rem) */
+  align-items: center; /* items-center */
+  justify-content: center; /* justify-center */
+}
+
+/*************************************/
+
+
+
+.ItemIndicator {
+  z-index: 50; /* z-50 */
+  min-width: 8rem; /* min-w-[8rem] */
+  overflow: hidden; /* overflow-hidden */
+  border-radius: 0.375rem; /* rounded-md */
+  border: 1px solid; /* border */
+  background-color: var(--popover-bg); /* bg-popover */
+  padding: 0.25rem; /* p-1 */
+  padding-left: 2rem;
+  color: var(--popover-foreground); /* text-popover-foreground */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-lg */
+}
+
+/* Animaciones y transiciones basadas en el estado */
+.ItemIndicator[data-state="open"] {
+  animation: fadeIn 0.3s ease-in-out, zoomIn 0.3s ease-in-out;
+}
+
+.ItemIndicator[data-state="closed"] {
+  animation: fadeOut 0.3s ease-in-out, zoomOut 0.3s ease-in-out;
+}
+
+
+
+/* Desaparecer (fade-out) y aparecer (fade-in) */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Efectos de zoom */
+@keyframes zoomIn {
+  0% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes zoomOut {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.95);
+  }
+}
+
+/* Efectos de deslizamiento en función de la posición (side) */
+.SubContent[data-side="bottom"] {
+  animation: slideInFromTop 0.3s ease-in-out;
+}
+
+.SubContent[data-side="left"] {
+  animation: slideInFromRight 0.3s ease-in-out;
+}
+
+.SubContent[data-side="right"] {
+  animation: slideInFromLeft 0.3s ease-in-out;
+}
+
+.SubContent[data-side="top"] {
+  animation: slideInFromBottom 0.3s ease-in-out;
+}
+
+/* Animaciones de deslizamiento */
+@keyframes slideInFromTop {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromBottom {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+
+.PrimitiveLabel {
+  padding-left: 0.5rem; /* px-2 */
+  padding-right: 0.5rem; /* px-2 */
+  padding-top: 0.375rem; /* py-1.5 */
+  padding-bottom: 0.375rem; /* py-1.5 */
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 600; /* font-semibold */
+}
+
+.Separator {
+  margin-left: -0.25rem; /* -mx-1 */
+  margin-right: -0.25rem; /* -mx-1 */
+  margin-top: 0.25rem; /* my-1 */
+  margin-bottom: 0.25rem; /* my-1 */
+  height: 1px; /* h-px */
+  background-color: var(--muted-bg); /* bg-muted (utilizando una variable CSS para el color de fondo) */
+}
+
+.Shortcut{
+  margin-left: auto; /* ml-auto */
+  font-size: 0.75rem; /* text-xs */
+  letter-spacing: 0.05em; /* tracking-widest */
+  opacity: 0.6;
 }

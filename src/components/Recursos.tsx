@@ -1,204 +1,84 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import * as React from "react"
 import './Recursos.css'
-import { Check } from "lucide-react"
-
-"use client"
-
 import type { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu"
 
-import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-
 type Checked = DropdownMenuCheckboxItemProps["checked"]
 
-
-interface Recursos {
-  id: string
-  status: string
-  title: string
-  description: string
-  thumbnail: string
-  tag: string
-}
-
-
-const getInfo = () => [
-  {
-    id: "1",
-    status: "cerebro",
-    title: "Lorem ipsum dolor",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ejusmod tempor incididunt ",
-    thumbnail: "/placeholder.svg?height-200&width=300",
-    tag: "Presentación"
-  },
-
-  {
-    id: "2",
-    status: "neurociencia",
-    title: "Lorem ipsum dolor",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ejusmod tempor incididunt ",
-    thumbnail: "/placeholder.svg?height-200&width=300",
-    tag: "Artículo"
-  },
-
-  {
-    id: "3",
-    status: "neurociencia",
-    title: "Lorem ipsum dolor",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ejusmod tempor incididunt ",
-    thumbnail: "/placeholder.svg?height-200&width=300",
-    tag: "Libro"
-  },
-
-  {
-    id: "4",
-    status: "cerebro",
-    title: "Lorem ipsum dolor",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ejusmod tempor incididunt ",
-    thumbnail: "/placeholder.svg?height-200&width=300",
-    tag: "Presentación"
-  },
-
-  {
-    id: "5",
-    status: "anatomia",
-    title: "Lorem ipsum dolor",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ejusmod tempor incididunt ",
-    thumbnail: "/placeholder.svg?height-200&width=300",
-    tag: "Libro"
-  },
-
-  {
-    id: "14",
-    status: "anatomia",
-    title: "Lorem ipsum dolor",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ejusmod tempor incididunt ",
-    thumbnail: "/placeholder.svg?height-200&width=300",
-    tag: "Artículo"
-  },
-
-  {
-    id: "7",
-    status: "cerebro",
-    title: "Lorem ipsum dolor",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ejusmod tempor incididunt ",
-    thumbnail: "/placeholder.svg?height-200&width=300",
-    tag: "Presentación"
-  },
-
-  {
-    id: "8",
-    status: "neurociencia",
-    title: "Lorem ipsum dolor",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ejusmod tempor incididunt ",
-    thumbnail: "/placeholder.svg?height-200&width=300",
-    tag: "Libro"
-  },
-
-  {
-    id: "9",
-    status: "neurociencia",
-    title: "Lorem ipsum dolor",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ejusmod tempor incididunt ",
-    thumbnail: "/placeholder.svg?height-200&width=300",
-    tag: "Artículo"
-  },
-
-  {
-    id: "10",
-    status: "anatomia",
-    title: "Lorem ipsum dolor",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ejusmod tempor incididunt ",
-    thumbnail: "/placeholder.svg?height-200&width=300",
-    tag: "Presentación"
-  },
-
-
-  {
-    id: "12",
-    status: "anatomia",
-    title: "Lorem ipsum dolor",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ejusmod tempor incididunt ",
-    thumbnail: "/placeholder.svg?height-200&width=300",
-    tag: "Libro"
-  },
-
-  {
-    id: "6",
-    status: "neurociencias",
-    title: "Lorem ipsum dolor",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ejusmod tempor incididunt ",
-    thumbnail: "/placeholder.svg?height-200&width=300",
-    tag: "Artículo"
-  },
-];
-
-
-
 function Recursos({ id }: { id: string }): JSX.Element {
-  const [info, setInfo] = useState(getInfo());
-  const [selected, setSelected] = useState<string | null>(null);
-  const [filtro, setFiltro] = useState('');
-
-  const handleCheckboxChange = (id: string) => {
-    setSelected(id);
-  };
-
+  const [recursos, setRecursos] = useState<any[]>([]);  
+  const [filteredRecursos, setFilteredRecursos] = useState<any[]>([]);  
   const [loading, setLoading] = useState(true);
 
-  const [showAnatomia, setShowAnatomia] = React.useState<Checked>(false)
-  const [showNeurociencia, setShowNeurociencia] = React.useState<Checked>(false)
-  const [showCerebro, setShowCerebro] = React.useState<Checked>(false)
+  const [showBiotica, setShowBiotica] = React.useState<Checked>(false);
+  const [showFarmaciologia, setShowFarmaciologia] = React.useState<Checked>(false);
+  const [showAnatomia, setShowAnatomia] = React.useState<Checked>(false);
 
-  const [showPresentacion, setShowPresentacion] = React.useState<Checked>(false)
-  const [showLibro, setShowLibro] = React.useState<Checked>(false)
-  const [showArticulo, setShowArticulo] = React.useState<Checked>(false)
+  const [showPresentacion, setShowPresentacion] = React.useState<Checked>(false);
+  const [showLibro, setShowLibro] = React.useState<Checked>(false);
+  const [showArticulo, setShowArticulo] = React.useState<Checked>(false);
 
   useEffect(() => {
-    setInfo(
-      getInfo().filter((item) => {
-        const filterMateria = (
-          (showAnatomia && item.status === "anatomia") ||
-          (showNeurociencia && item.status === "neurociencia") ||
-          (showCerebro && item.status === "cerebro")
-        );
+    const fetchVideos = async () => {
+      try {
+        const response = await fetch("/api/elements.controllers/getRecursos.controller");
+        if (!response.ok) {
+          throw new Error('No se pudieron cargar los Recursos :(');
+        }
+        const data = await response.json();        
+        setRecursos(data.recursos);
+        setLoading(false);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-        const filterRecurso = (
-          (showPresentacion && item.tag === "Presentación") ||
-          (showLibro && item.tag === "Libro") ||
-          (showArticulo && item.tag === "Artículo")
-        );
+    fetchVideos();
+  }, []);
 
-        const noFilterSelected =
-          !showAnatomia && !showNeurociencia && !showCerebro &&
-          !showPresentacion && !showLibro && !showArticulo;
+  useEffect(() => {
+    const filtered = recursos.filter((item: { areas_nombre: string; tipo_nombre: string }) => {
 
-        return (
-          noFilterSelected ||
-          (filterMateria && filterRecurso) ||
-          (filterMateria && !showPresentacion && !showLibro && !showArticulo) ||
-          (!showAnatomia && !showNeurociencia && !showCerebro && filterRecurso)
-        );
+      const filterMateria =
+        (showBiotica && item.areas_nombre === "Biotica") ||
+        (showFarmaciologia && item.areas_nombre === "Farmaciologia") ||
+        (showAnatomia && item.areas_nombre === "Anatomia");
 
-      })
-    )
-  }, [showAnatomia, showNeurociencia, showCerebro, showPresentacion, showArticulo, showLibro])
+      const filterRecurso =
+        (showPresentacion && item.tipo_nombre === "Presentacion") ||
+        (showLibro && item.tipo_nombre === "Libro") ||
+        (showArticulo && item.tipo_nombre === "Articulo");
 
-  const [orderBy, setOrderBy] = React.useState('')
+      const noFilterSelected =
+        !showBiotica && !showFarmaciologia && !showAnatomia &&
+        !showPresentacion && !showLibro && !showArticulo;
+
+      return (
+        noFilterSelected ||
+        (filterMateria && filterRecurso) ||
+        (filterMateria && !showPresentacion && !showLibro && !showArticulo) ||
+        (!showBiotica && !showFarmaciologia && !showAnatomia && filterRecurso)
+      );
+    });
+
+    setFilteredRecursos(filtered);
+  }, [recursos, showBiotica, showFarmaciologia, showAnatomia, showPresentacion, showLibro, showArticulo]);
+
+  if (loading) {
+    return <div>Cargando... ^^ </div>;
+  }
 
   return (
     <>
       <div className='principal'>
-
         <div className="filter-box">
           <div className="child-box">
             <span className="text-filtrar">Filtrar:</span>
@@ -209,27 +89,26 @@ function Recursos({ id }: { id: string }): JSX.Element {
               <DropdownMenuContent className="category-box">
                 <DropdownMenuLabel>Selecciona</DropdownMenuLabel>
                 <DropdownMenuCheckboxItem
+                  checked={showBiotica}
+                  onCheckedChange={setShowBiotica}
+                >
+                  Biotica
+                </DropdownMenuCheckboxItem>
+                <DropdownMenuCheckboxItem
+                  checked={showFarmaciologia}
+                  onCheckedChange={setShowFarmaciologia}
+                >
+                  Farmacologia
+                </DropdownMenuCheckboxItem>
+                <DropdownMenuCheckboxItem
                   checked={showAnatomia}
                   onCheckedChange={setShowAnatomia}
                 >
                   Anatomia
                 </DropdownMenuCheckboxItem>
-                <DropdownMenuCheckboxItem
-                  checked={showNeurociencia}
-                  onCheckedChange={setShowNeurociencia}
-                >
-                  Neurociencia
-                </DropdownMenuCheckboxItem>
-                <DropdownMenuCheckboxItem
-                  checked={showCerebro}
-                  onCheckedChange={setShowCerebro}
-                >
-                  Cerebro
-                </DropdownMenuCheckboxItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
-
 
           <div className="filter-box">
             <span className="child-box">Ordenar por:</span>
@@ -264,18 +143,18 @@ function Recursos({ id }: { id: string }): JSX.Element {
 
         <div className='document-grid-container'>
           <div className='document-grid'>
-            {info.map(item => (
-              <div key={item.id} className="card">
+            {filteredRecursos.map(recurso => (
+              <div key={recurso.recursos_id} className="card">
                 <div className='thumbnail-container'>
                   <img
-                    src={item.thumbnail}
-                    alt={item.title}
+                    src="/placeholder.svg?height-200&width-300"
+                    alt={recurso.recursos_titulo}
                     className='thumbnail'
                   />
                   <div className='content'></div>
-                  <h2 className='document-title'>{item.title}</h2>
-                  <p className='document-description'>{item.description}</p>
-                  <button className='btn btn-white'>{item.tag}</button>
+                  <h2 className='document-title'>{recurso.recursos_titulo}</h2>
+                  <p className='document-description'>{recurso.recursos_descripcion}</p>
+                  <button className='btn btn-white'>{recurso.tipo_nombre}</button>
                 </div>
               </div>
             ))}
@@ -286,5 +165,4 @@ function Recursos({ id }: { id: string }): JSX.Element {
   );
 }
 
-export default Recursos
-
+export default Recursos;

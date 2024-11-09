@@ -161,7 +161,7 @@ export default function CommentSystem() {
 
   return (
     <div className="comment-system">
-      <h2>Foro</h2>
+      <h1>Foro</h1>
       <form onSubmit={handleSubmit} className="comment-form">
         <textarea
           value={newComment}

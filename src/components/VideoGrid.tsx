@@ -1,4 +1,4 @@
-import React, { useState ,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 
 export default function VideoGrid() {
 
@@ -16,13 +16,12 @@ export default function VideoGrid() {
         }
 
         const data = await response.json();
-        console.log(data.videos);
-        
+
         setVideos(data.videos)
         setLoading(false)
       } catch (error) {
         console.error(error);
-        
+
       }
     }
 
@@ -30,11 +29,15 @@ export default function VideoGrid() {
   }, []);
 
   if (loading) {
-    return <div>Cargandop... ^^ </div>; 
+    return <div>Cargandop... ^^ </div>;
   }
 
   if (error) {
     return <div>Error: {error} :c</div>;
+  }
+
+  const showVideo = (link: string) => {
+    window.location.href = link
   }
 
   return (
@@ -51,14 +54,16 @@ export default function VideoGrid() {
               <button className="video-play-button">▶</button>
             </div>
             <div className="video-content">
-              <h2 className="video-title">{video.videos_temas}</h2>
-              <p className="video-description">{video.videos_descripcion}</p>
-              <button className="video-watch-button">Watch Now</button>
+              <div className='video-info'>
+                <h2 className="video-title">{video.videos_temas}</h2>
+                <p className="video-description">{video.videos_descripcion}</p>
+              </div>
+              <button onClick={() => showVideo(video.videos_url)} className="video-watch-button">Watch Now</button>
             </div>
           </div>
         ))}
       </div>
     </div>
-    
+
   )
 }
