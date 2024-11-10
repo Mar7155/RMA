@@ -1,0 +1,149 @@
+<div class="quiz-container">
+    <h1>Cuestionario de Anatomía</h1>
+    <form id="anatomy-quiz">
+      <div class="question">
+        <p>1. ¿Cuál es el órgano más grande del cuerpo humano?</p>
+        <input type="radio" id="q1a" name="q1" value="a">
+        <label for="q1a">Hígado</label><br>
+        <input type="radio" id="q1b" name="q1" value="b">
+        <label for="q1b">Piel</label><br>
+        <input type="radio" id="q1c" name="q1" value="c">
+        <label for="q1c">Pulmones</label><br>
+        <input type="radio" id="q1d" name="q1" value="d">
+        <label for="q1d">Intestino grueso</label>
+      </div>
+  
+      <div class="question">
+        <p>2. ¿Cuántos huesos tiene el cuerpo humano adulto?</p>
+        <input type="number" id="q2" name="q2" min="1" max="300">
+      </div>
+  
+      <div class="question">
+        <p>3. ¿Cuál es la función principal del sistema linfático?</p>
+        <textarea id="q3" name="q3" rows="3"></textarea>
+      </div>
+  
+      <div class="question">
+        <p>4. ¿Qué parte del cerebro es responsable del equilibrio y la coordinación?</p>
+        <input type="radio" id="q4a" name="q4" value="a">
+        <label for="q4a">Cerebelo</label><br>
+        <input type="radio" id="q4b" name="q4" value="b">
+        <label for="q4b">Lóbulo frontal</label><br>
+        <input type="radio" id="q4c" name="q4" value="c">
+        <label for="q4c">Hipotálamo</label><br>
+        <input type="radio" id="q4d" name="q4" value="d">
+        <label for="q4d">Tálamo</label>
+      </div>
+  
+      <div class="question">
+        <p>5. Nombre las cuatro cámaras del corazón:</p>
+        <input type="text" id="q5a" name="q5a" placeholder="Cámara 1">
+        <input type="text" id="q5b" name="q5b" placeholder="Cámara 2">
+        <input type="text" id="q5c" name="q5c" placeholder="Cámara 3">
+        <input type="text" id="q5d" name="q5d" placeholder="Cámara 4">
+      </div>
+  
+      <div class="question">
+        <p>6. ¿Cuál es el hueso más largo del cuerpo humano?</p>
+        <input type="radio" id="q6a" name="q6" value="a">
+        <label for="q6a">Fémur</label><br>
+        <input type="radio" id="q6b" name="q6" value="b">
+        <label for="q6b">Húmero</label><br>
+        <input type="radio" id="q6c" name="q6" value="c">
+        <label for="q6c">Tibia</label><br>
+        <input type="radio" id="q6d" name="q6" value="d">
+        <label for="q6d">Columna vertebral</label>
+      </div>
+  
+      <div class="question">
+        <p>7. ¿Cuántos pares de costillas tiene normalmente un ser humano?</p>
+        <input type="number" id="q7" name="q7" min="1" max="20">
+      </div>
+  
+      <div class="question">
+        <p>8. ¿Qué glándula produce la insulina?</p>
+        <input type="radio" id="q8a" name="q8" value="a">
+        <label for="q8a">Tiroides</label><br>
+        <input type="radio" id="q8b" name="q8" value="b">
+        <label for="q8b">Páncreas</label><br>
+        <input type="radio" id="q8c" name="q8" value="c">
+        <label for="q8c">Pituitaria</label><br>
+        <input type="radio" id="q8d" name="q8" value="d">
+        <label for="q8d">Suprarrenal</label>
+      </div>
+  
+      <div class="question">
+        <p>9. Enumere los cinco sentidos:</p>
+        <input type="text" id="q9a" name="q9a" placeholder="Sentido 1">
+        <input type="text" id="q9b" name="q9b" placeholder="Sentido 2">
+        <input type="text" id="q9c" name="q9c" placeholder="Sentido 3">
+        <input type="text" id="q9d" name="q9d" placeholder="Sentido 4">
+        <input type="text" id="q9e" name="q9e" placeholder="Sentido 5">
+      </div>
+  
+      <div class="question">
+        <p>10. ¿Cuál es la función principal de los glóbulos rojos?</p>
+        <textarea id="q10" name="q10" rows="3"></textarea>
+      </div>
+  
+      <button class="enviarForm" type="submit">Enviar respuestas</button>
+    </form>
+  </div>
+  
+  <style>
+    .quiz-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+  
+    h1 {
+      color: #333;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  
+    .question {
+      background-color: #fff;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+  
+    p {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+  
+    input[type="radio"], input[type="text"], input[type="number"], textarea {
+      margin-bottom: 10px;
+    }
+  
+    input[type="text"], input[type="number"], textarea {
+      width: 100%;
+      padding: 5px;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+    }
+  
+    .enviarForm {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #ff3131;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+  
+    .enviarForm:hover {
+      background-color: #a72020;
+    }
+  </style>
