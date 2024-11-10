@@ -27,13 +27,15 @@ function Recursos({ id }: { id: string }): JSX.Element {
   const [showArticulo, setShowArticulo] = React.useState<Checked>(false);
 
   useEffect(() => {
-    const fetchVideos = async () => {
+    const fetchRecursos = async () => {
       try {
         const response = await fetch("/api/elements.controllers/getRecursos.controller");
         if (!response.ok) {
           throw new Error('No se pudieron cargar los Recursos :(');
         }
-        const data = await response.json();        
+        const data = await response.json();  
+        console.log(data.recursos);
+        
         setRecursos(data.recursos);
         setLoading(false);
       } catch (error) {
@@ -41,7 +43,7 @@ function Recursos({ id }: { id: string }): JSX.Element {
       }
     };
 
-    fetchVideos();
+    fetchRecursos();
   }, []);
 
   useEffect(() => {
@@ -74,6 +76,10 @@ function Recursos({ id }: { id: string }): JSX.Element {
 
   if (loading) {
     return <div>Cargando... ^^ </div>;
+  }
+
+  const showResource = (id:string, titulo:string, descripcion:string, tipo:string, area:string, link:string) => {
+    window.location.href = `/views/${id}?titulo=${encodeURIComponent(titulo)}&descripcion=${encodeURIComponent(descripcion)}&tipo=${encodeURIComponent(tipo)}&area=${encodeURIComponent(area)}&url=${encodeURIComponent(link)}`
   }
 
   return (
@@ -144,7 +150,7 @@ function Recursos({ id }: { id: string }): JSX.Element {
         <div className='document-grid-container'>
           <div className='document-grid'>
             {filteredRecursos.map(recurso => (
-              <div key={recurso.recursos_id} className="card">
+              <div key={recurso.recursos_id} className="card" onClick={() => showResource(recurso.recursos_id, recurso.recursos_titulo, recurso.recursos_descripcion, recurso.recursos_tipo, recurso.recursos_area, recurso.recursos_url)}>
                 <div className='thumbnail-container'>
                   <img
                     src="/placeholder.svg?height-200&width-300"
@@ -154,7 +160,7 @@ function Recursos({ id }: { id: string }): JSX.Element {
                   <div className='content'></div>
                   <h2 className='document-title'>{recurso.recursos_titulo}</h2>
                   <p className='document-description'>{recurso.recursos_descripcion}</p>
-                  <button className='btn btn-white'>{recurso.tipo_nombre}</button>
+                  <button onClick={() => showResource(recurso.recursos_id, recurso.recursos_titulo, recurso.recursos_descripcion, recurso.tipo_nombre, recurso.areas_nombre, recurso.recursos_url)} className='btn btn-white'>{recurso.tipo_nombre}</button>
                 </div>
               </div>
             ))}

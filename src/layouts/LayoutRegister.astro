@@ -2,6 +2,7 @@
 import Image from "astro/components/Image.astro";
 
 import Fondo from "../../public/Fondo_v1.png"
+import { ViewTransitions } from "astro:transitions";
 
 const { title} = Astro.props;
 ---
@@ -17,6 +18,7 @@ const { title} = Astro.props;
       @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
     </style>
     <title>{title}</title>
+    <ViewTransitions />
   </head>
 <body>
     <div class="overlay-background"></div>

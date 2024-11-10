@@ -6,7 +6,8 @@ import '@react-pdf-viewer/zoom/lib/styles/index.css';
 import '@react-pdf-viewer/page-navigation/lib/styles/index.css';
 import { Worker } from '@react-pdf-viewer/core';
 
-const PdfViewer = () => {
+
+const PdfViewer = ({link}: {link:string}) => {
     const zoomPluginInstance = zoomPlugin();
     const pageNavigationPluginInstance = pageNavigationPlugin();
 
@@ -71,7 +72,7 @@ const PdfViewer = () => {
                         }}
                     >
                         <Viewer
-                            fileUrl="/Presentación.pdf"
+                            fileUrl={link}
                             plugins={[zoomPluginInstance, pageNavigationPluginInstance]}
                         />
                     </div>
