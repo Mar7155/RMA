@@ -4,21 +4,23 @@ import { pool } from "../db.ts";
 export const GET: APIRoute = async () => {
     try {
         const query = `SELECT 
-        comentarios.comentarios_texto as texto_comentario,
-        comentarios.usuario_id as usuario_id_comentario,
-        COUNT(likes.comentarios_id) as cantidad_likes,
+        respuestas.usuario_id as usuario_id_respuesta,
+        respuestas.respuesta_texto as texto_respuesta,
+        COUNT(likes_respuestas.respuesta_id) as cantidad_likes_respuestas,
+        respuestas.comentarios_id as comentario_id_respuesta,
         usuarios.usuario_nombre as nombre_usuario
 
 FROM
-    comentarios
+    respuestas
 JOIN 
-    likes ON comentarios.comentarios_id = likes.comentarios_id
-JOIN 
-    usuarios ON usuarios.usuario_id = comentarios.comentarios_id
+    likes_respuestas ON respuestas.respuesta_id = likes_respuestas.respuesta_id
+JOIN
+    usuarios ON usuarios.usuario_id = respuestas.respuesta_id
 
 GROUP BY 
-    comentarios.comentarios_texto,
-    comentarios.usuario_id,
+    respuestas.usuario_id,
+    respuestas.respuesta_texto,
+    respuestas.comentarios_id,
     usuarios.usuario_nombre;
 `;
         const result = await pool.query(query);
@@ -32,7 +34,7 @@ GROUP BY
 
         return new Response(
             JSON.stringify({
-                comentarios: result.rows,
+                respuestas: result.rows,
             }),
             {
                 status: 200,
