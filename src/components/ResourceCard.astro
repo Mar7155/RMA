@@ -9,14 +9,19 @@ interface Props {
 const { icon, title, description, link } = Astro.props;
 ---
 
-<a href={link} class="resource-card">
-	<span class="icon">{icon}</span>
-	<h3>{title}</h3>
-	<p>{description}</p>
-	<span class="learn-more">Saber más →</span>
-</a>
+<div class="box">
+	<a href={link} class="resource-card">
+		<span class="icon">{icon}</span>
+		<h3>{title}</h3>
+		<p>{description}</p>
+		<span class="learn-more">Saber más →</span>
+	</a>
+</div>
 
 <style>
+	.box{
+		margin-top: 5rem;
+	}
 	.resource-card {
 		background: white;
 		border-radius: 12px;
@@ -24,7 +29,9 @@ const { icon, title, description, link } = Astro.props;
 		text-decoration: none;
 		color: #1e293b;
 		box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-		transition: transform 0.3s ease, box-shadow 0.3s ease;
+		transition:
+			transform 0.3s ease,
+			box-shadow 0.3s ease;
 		display: flex;
 		flex-direction: column;
 		height: 100%;

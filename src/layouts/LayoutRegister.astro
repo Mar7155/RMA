@@ -1,70 +1,55 @@
 ---
-
 import { ViewTransitions } from "astro:transitions";
 
-const { title} = Astro.props;
+const { title } = Astro.props;
 ---
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content="Astro description" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/RMA - SVG.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-    </style>
-    <title>{title}</title>
-    <ViewTransitions />
-  </head>
-<body>
-    <div class="overlay-background"></div>
-    
-    <div class="layout2-container">
-        <div class="layout2-image">
-            <img src="/Fondo_v1.webp" alt="Medico con herramienta">
-        </div>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="description" content="Astro description" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/RMA - SVG.svg" />
+        <meta name="generator" content={Astro.generator} />
+        <style>
+            @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+        </style>
+        <title>{title}</title>
+        <ViewTransitions />
+    </head>
+    <body>
+        <div class="layout2-container">
+            <div class="layout2-image">
+                <img src="/Fondo_v1.webp" alt="Medico con herramienta" />
+            </div>
 
-        <div class="layout2-content">
-            <slot /> 
-        </div>
+            <div class="layout2-content">
+                <slot />
+            </div>
 
-        <a href="/" class="close-button">&times;</a>
-    </div>
-    
-</body>
+            <a href="/" class="close-button">&times;</a>
+        </div>
+    </body>
 </html>
 
 <style is:global>
     body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f2f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-    .overlay-background {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+        font-family: "Inter", sans-serif;
         background-color: rgba(0, 0, 0, 0.4);
-        backdrop-filter: blur(10px); 
-        z-index: 1; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
     }
 
     .layout2-container {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
         display: flex;
+        justify-content: center;
+        align-items: center;
         width: 70%;
-        height: 70%;
+        height: 90%;
         background-color: white;
         z-index: 2;
         border-radius: 10px;
@@ -109,13 +94,14 @@ const { title} = Astro.props;
         height: 30px;
         cursor: pointer;
         font-size: 1.2rem;
+        text-align: center;
     }
 
     .close-button:hover {
         background-color: #9b1c1c;
     }
-    
-    .register-container{
+
+    .register-container {
         background-color: white;
         /*padding: 2rem;
         border-radius: 8px;
@@ -125,23 +111,23 @@ const { title} = Astro.props;
         justify-content: center;*/
         position: relative;
     }
-    .register-title{
+    .register-title {
         color: #ff3131;
         text-align: center;
         margin-bottom: 1.5rem;
     }
-    .register-form{
+    .register-form {
         position: relative;
         flex-direction: column;
         align-items: center;
         display: flex;
     }
-    .register-input-group{
+    .register-input-group {
         position: relative;
-        margin-bottom: 1rem;
+        margin-bottom: .5rem;
         box-sizing: border-box;
     }
-    .register-input{
+    .register-input {
         width: 17rem;
         padding: 0.75rem;
         border: 1px solid #dddfe2;
@@ -149,12 +135,12 @@ const { title} = Astro.props;
         font-size: 1rem;
         transition: 0.2s ease all;
     }
-    .register-input:focus{
+    .register-input:focus {
         outline: none;
         border-color: #ff3131;
         box-shadow: 0 0 0 2px rgba(255, 49, 49, 0.2);
     }
-    .register-label{
+    .register-label {
         position: absolute;
         left: 0.75rem;
         top: 0.75rem;
@@ -164,7 +150,7 @@ const { title} = Astro.props;
         pointer-events: none;
     }
     .register-input:focus ~ .register-label,
-    .register-input:not(:placeholder-shown) ~ .register-label{
+    .register-input:not(:placeholder-shown) ~ .register-label {
         top: -0.5rem;
         left: 0.5rem;
         font-size: 0.75rem;
@@ -173,123 +159,139 @@ const { title} = Astro.props;
         padding: 0 0.25rem;
     }
 
-    .register-button{
-            background-color: #ff3131;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            padding: 0.75rem;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+    .register-button {
+        background-color: #ff3131;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 0.75rem;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
     .register-button:hover {
         background-color: #9b1c1c;
-    }    
-    .register-Message-Group{
-            position: relative;
-            top: 1.2rem;
-            margin-bottom: 0.5rem;
-            text-decoration: none;
-            text-align: center;
-        }
-
-    .register-Message{
-        color: #ff3131;
-        text-decoration:none;
+    }
+    .register-Message-Group {
+        position: relative;
+        top: 1.2rem;
+        margin-bottom: 0.5rem;
+        text-decoration: none;
+        text-align: center;
     }
 
-    .register-Message:hover{
+    .register-Message {
+        color: #ff3131;
+        text-decoration: none;
+    }
+
+    .register-Message:hover {
         text-decoration: none;
         cursor: pointer;
     }
 
+    /*login*/
 
-    **login**
-
-    
     .login-container {
-            background-color: white;
-            /*padding: 2rem;
+        background-color: white;
+        /*padding: 2rem;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);*/
-            width: 300px;
-            /*display: flex;*/
-            position: relative;
-        }
-        .login-title {
-            color: #ff3131;
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-        .login-form {
-            display: flex;
-            flex-direction: column;
-        }
-        .login-input-group {
-            position: relative;
-            margin-bottom: 1rem;
-        }
-        .login-input {
-            width: 17rem;
-            padding: 0.75rem;
-            border: 1px solid #dddfe2;
-            border-radius: 6px;
-            font-size: 1rem;
-            transition: 0.2s ease all;
-        }
-        .login-input:focus {
-            outline: none;
-            border-color: #ff3131;
-            box-shadow: 0 0 0 2px rgba(255, 49, 49, 0.2);
-        }
-        .login-label {
-            position: absolute;
-            left: 0.75rem;
-            top: 0.75rem;
-            color: #999;
-            font-size: 1rem;
-            transition: 0.2s ease all;
-            pointer-events: none;
-        }
-        .login-input:focus ~ .login-label,
-        .login-input:not(:placeholder-shown) ~ .login-label {
-            top: -0.5rem;
-            left: 0.5rem;
-            font-size: 0.75rem;
-            color: #ff3131;
-            background-color: white;
-            padding: 0 0.25rem;
-        }
-        .login-button {
-            background-color: #ff3131;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            padding: 0.75rem;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        .login-button:hover {
-            background-color: #9b1c1c;
-        }
+        width: 300px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+    .login-title {
+        color: #ff3131;
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+    .login-form {
+        display: flex;
+        flex-direction: column;
+    }
+    .login-input-group {
+        position: relative;
+        margin-bottom: 1rem;
+    }
+    .login-input {
+        width: 17rem;
+        padding: 0.75rem;
+        border: 1px solid #dddfe2;
+        border-radius: 6px;
+        font-size: 1rem;
+        transition: 0.2s ease all;
+    }
+    .login-input:focus {
+        outline: none;
+        border-color: #ff3131;
+        box-shadow: 0 0 0 2px rgba(255, 49, 49, 0.2);
+    }
+    .login-label {
+        position: absolute;
+        left: 0.75rem;
+        top: 0.75rem;
+        color: #999;
+        font-size: 1rem;
+        transition: 0.2s ease all;
+        pointer-events: none;
+    }
+    .login-input:focus ~ .login-label,
+    .login-input:not(:placeholder-shown) ~ .login-label {
+        top: -0.5rem;
+        left: 0.5rem;
+        font-size: 0.75rem;
+        color: #ff3131;
+        background-color: white;
+        padding: 0 0.25rem;
+    }
+    .login-button {
+        background-color: #ff3131;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 0.75rem;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    .login-button:hover {
+        background-color: #9b1c1c;
+    }
 
-        .sign-Up-Message-Group{
-            position: relative;
-            top: 1.2rem;
-            margin-bottom: 0.5rem;
-            text-decoration: none;
-            text-align: center;
-        }
+    .sign-Up-Message-Group {
+        position: relative;
+        top: 1.2rem;
+        margin-bottom: 0.5rem;
+        text-decoration: none;
+        text-align: center;
+    }
 
-        .sign-Up-Message{
-            color: #ff3131;
-            text-decoration:none;
-        }
+    .sign-Up-Message {
+        color: #ff3131;
+        text-decoration: none;
+    }
 
-        .sign-Up-Message:hover{
-            text-decoration: none;
-            cursor: pointer;
+    .sign-Up-Message:hover {
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    @media (max-width: 978px) {
+        .layout2-image {
+            display: none;
         }
+    }
+    @media (max-width: 500px) {
+        .register-input{
+            width: 14rem;
+        }
+        .login-input{
+            width: 200px;
+        }
+        .login-container{
+            width: 14rem;
+        }
+    }
 </style>

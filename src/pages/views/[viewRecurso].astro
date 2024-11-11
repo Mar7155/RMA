@@ -34,9 +34,9 @@ const link = "/PsicofarmacologíaParaPsicólogos.pdf";
                         <button class="btn btn-white">{tipo}</button>
                         <button class="btn btn-white">{area}</button>
                     </div>
+                    <button class="btn btn-back">Volver</button>
                 </div>
-                <button class="btn btn-back">Volver</button>
-            </section>
+                </section>
         </div>
     </main>
 </Layout>
@@ -140,5 +140,23 @@ const link = "/PsicofarmacologíaParaPsicólogos.pdf";
         margin-bottom: 15px;
         line-height: 1.4;
         text-align: justify;
+    }
+
+    @media (max-width: 768px) {
+        .clases_hero{
+            flex-direction:column-reverse;
+            gap: 2rem;
+        }
+        .btn-back{
+            position: relative;
+            top: 1rem;
+            left: .1rem;
+        }
+        .pdf-section{
+            width: 97%;
+        }
+        .info-section{
+            width: auto;
+        }
     }
 </style>

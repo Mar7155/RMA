@@ -40,8 +40,9 @@ const Profile: React.FC = () => {
             <img src="/placeholder.svg?height-200&width=300" alt="User Icon" className="user-icon" />
           </div>
           <div className="photo-buttons">
-            <button className="save-button" type="button">Cambiar la foto</button>
+            {/*<button className="save-button" type="button">Cambiar la foto</button>
             <button className="save-button bordered cancel-button" type="button">Quitar la foto</button>
+            */}  
           </div>
         </div>
 

@@ -57,7 +57,6 @@ export default function CommentSystem() {
         const data = await response.json();
         console.log(data);
 
-        // Formatear los comentarios
         const formattedComments = data.comentarios.map((item: any) => ({
           id: parseInt(item.usuario_id_comentario) || Date.now(),
           author: item.nombre_usuario || "Usuario Anónimo",
@@ -66,7 +65,7 @@ export default function CommentSystem() {
           date: new Date().toISOString().split('T')[0],
           likes: parseInt(item.cantidad_likes) || 0,
           isLiked: false,
-          replies: [], // Inicialmente sin respuestas
+          replies: [], 
         }));
 
         setComments(formattedComments);
@@ -95,10 +94,8 @@ export default function CommentSystem() {
           const data = await response.json();
           console.log(data);
 
-          // Asignar las respuestas a los comentarios correspondientes
           const updatedComments = [...comments];
 
-          // Mapear las respuestas a los comentarios según el comentario_id_respuesta
           data.respuestas.forEach((reply: any) => {
             const parentCommentIndex = updatedComments.findIndex(
               (comment) => comment.id === parseInt(reply.comentario_id_respuesta)

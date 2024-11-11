@@ -44,7 +44,7 @@ console.log(currentTime);
 				/>
 				<ResourceCard
 					icon="👩‍⚕️"
-					title="Tutorías Personalizadas"
+					title="Tutorías"
 					description="Agenda sesiones one-on-one con expertos en tu área de interés"
 					link="/Tutorias"
 				/>
@@ -105,7 +105,6 @@ console.log(currentTime);
 		justify-content: center;
 		flex-direction: column;
 		background-color: #f4f4f5;
-		height: 50vh;
 	}
 
 	.inicio-recursos {
@@ -113,48 +112,75 @@ console.log(currentTime);
 		justify-content: center;
 		flex-direction: column;
 		background-color: #f4f4f5;
+		width: auto;
 	}
 
 	.inicio-recursos h2 {
 		font-size: 32px;
 		font-weight: bold;
 		margin: 0 auto;
+		text-align: center;
+		width: 400px;
 	}
 
 	.inicio-recursos-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		grid-template-columns: repeat(
+			auto-fit,
+			minmax(230px, 1fr)
+		); /* Flexibilidad en el número de columnas */
 		gap: 2rem;
-		max-width: 1200px;
 		margin: 0 auto;
-		margin-bottom: 5rem;
-		padding: 5rem 10rem;
+		margin-bottom: 10rem;
+		padding: 3rem 5%; /* Reduce los márgenes en pantallas pequeñas */
 	}
 
 	.inicio-temas {
 		padding: 5rem 0rem;
 	}
 
-	.inicio-planes{
+	.inicio-planes {
 		display: flex;
 		justify-content: center;
 		flex-direction: column;
 		background-color: #f4f4f5;
+		width: auto;
 	}
 
-	.inicio-planes h2{
+	.inicio-planes h2 {
 		font-size: 32px;
 		font-weight: 700;
 		margin: 0 auto;
 	}
-	.planes-grid{
+	.planes-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		grid-template-columns: repeat(3, 1fr);
 		gap: 2rem;
-		max-width: 1200px;
 		margin: 0 auto;
-		margin-bottom: 5rem;
-		padding: 5rem 10rem;
+		margin-bottom: 10rem;
+		padding:  5%;
 	}
-
+	@media (max-width: 768px) {
+		.inicio-recursos-grid {
+			padding: 3rem 2rem; /* Ajuste del padding */
+		}
+		.planes-grid{
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+	@media (max-width: 579px) {
+		.inicio-recursos-grid {
+			padding: 2rem 1rem; /* Ajuste del padding para pantallas muy pequeñas */
+			grid-template-columns: 1fr; /* Una sola columna en pantallas móviles */
+		}
+		.planes-grid{
+			grid-template-columns: repeat(1, 1fr);
+		}
+	}
+	@media (min-width: 1200px) {
+		
+		.inicio-recursos-grid {
+			max-width: 1200px; /* Máximo ancho de la cuadrícula en pantallas grandes */
+		}
+	}
 </style>
