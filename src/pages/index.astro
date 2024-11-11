@@ -4,6 +4,7 @@ import TopicsGrid from "@/components/TopicsGrid";
 import ResourceCard from "@/components/ResourceCard.astro";
 import Home from "@/components/Home";
 import { sql } from "../lib/neon";
+import CardSuscription from "@/components/CardSuscription.astro";
 
 const response = await sql`SELECT NOW() as current_time`;
 const currentTime = response[0].current_time;
@@ -46,6 +47,26 @@ console.log(currentTime);
 					title="Tutorías Personalizadas"
 					description="Agenda sesiones one-on-one con expertos en tu área de interés"
 					link="/Tutorias"
+				/>
+			</div>
+		</section>
+		<section class="inicio-planes">
+			<h2>Suscripciones</h2>
+			<div class="planes-grid">
+				<CardSuscription
+					title="Gratis"
+					description="Contenido limitado, pero suficiente"
+					price="$00.00"
+				/>
+				<CardSuscription
+					title="Basico"
+					description="Contenido limitado, pero suficiente"
+					price="$2.99"
+				/>
+				<CardSuscription
+					title="Premium"
+					description="Contenido limitado, pero suficiente"
+					price="$3.99"
 				/>
 			</div>
 		</section>
@@ -113,4 +134,27 @@ console.log(currentTime);
 	.inicio-temas {
 		padding: 5rem 0rem;
 	}
+
+	.inicio-planes{
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+		background-color: #f4f4f5;
+	}
+
+	.inicio-planes h2{
+		font-size: 32px;
+		font-weight: 700;
+		margin: 0 auto;
+	}
+	.planes-grid{
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		gap: 2rem;
+		max-width: 1200px;
+		margin: 0 auto;
+		margin-bottom: 5rem;
+		padding: 5rem 10rem;
+	}
+
 </style>
