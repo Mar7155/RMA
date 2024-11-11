@@ -227,7 +227,7 @@
   }
   
   .dropDownMenu:focus {
-    background-color: var(--accent);
+    background-color: rgb(226, 226, 226);
     color: var(--accent-foreground);
   }
   
@@ -363,9 +363,6 @@
 }
 
 /* Efectos de deslizamiento en función de la posición (side) */
-.PrimitiveContent[data-side="bottom"] {
-  animation: slideInFromTop 0.3s ease-in-out;
-}
 
 .PrimitiveContent[data-side="left"] {
   animation: slideInFromRight 0.3s ease-in-out;
