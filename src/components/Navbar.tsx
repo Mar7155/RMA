@@ -39,12 +39,12 @@ const Header: React.FC = () => {
                 <img src="/RMA - SVG.svg" alt="logo-red-medical-advisor" width="140" height="140" />
             </div>
 
-            {/* Botón de menú */}
+            <a>
             <button className={`menu-toggle ${menuOpen ? 'open' : ''}`} onClick={toggleMenu}>
                 ☰
             </button>
+            </a>
 
-            {/* Menú de navegación */}
             <nav className={`nav ${menuOpen ? 'open' : ''}`}>
                 <a href="/">Home</a>
                 <a href="/Clases">Clases</a>
@@ -53,7 +53,6 @@ const Header: React.FC = () => {
                 <a href="/Tutorias">Tutorias</a>
             </nav>
 
-            {/* Mostrar botones de login o información del usuario */}
             {!userLogged ? (
                 <LoginsButtons />
             ) : (

@@ -1,6 +1,7 @@
 import React from 'react';
 
 export default function Home() {
+    
     return (
         <section className="home-section">
             <div className="home-content">
@@ -8,7 +9,9 @@ export default function Home() {
                 <p className="home-description">
                     Tu plataforma de aprendizaje para la carrera de Médico Cirujano. Explora, aprende y crece con nosotros.
                 </p>
-                <button className="home-cta-button">Ver Precios</button>
+                <a href="#suscripciones">
+                    <button className="home-cta-button">Ver Precios</button>
+                </a>
             </div>
             {/*<div className="home-image-section">
                 <img src="/placeholder.svg?height=400&width=400" alt="Successful learner" className="home-learner-image" />

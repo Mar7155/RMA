@@ -23,9 +23,11 @@ export default function PopularTopics() {
         </div>
         
         <div className="topics-button-container">
-          <button className="topics-browse-button">
-            Ver más 
-          </button>
+          <a href="Recursos">
+            <button className="topics-browse-button">
+              Ver más 
+            </button>
+          </a>
         </div>
       </div>
     </section>
