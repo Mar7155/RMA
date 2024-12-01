@@ -27,9 +27,22 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     const firstValues = [formData.Email];
-    //`SELECT * FROM usuarios WHERE usuario_correo = $1 AND usuario_contraseña = $2`
     try {
-      const firstQuery = `SELECT * FROM usuarios WHERE usuario_correo = $1`;
+      const firstQuery = `SELECT 
+  usuarios.usuario_id,
+  usuarios.usuario_nombre,
+  usuarios.usuario_apellido_paterno,
+  usuarios.usuario_apellido_materno,
+  usuarios.usuario_correo,
+  usuarios.usuario_contraseña,
+  usuarios.usuario_fechareg,
+  planes.planes_nombre
+  
+FROM usuarios
+
+JOIN planes ON usuarios.planes_id = planes.planes_id
+
+WHERE usuarios.usuario_correo = $1`;
       const getUser = await pool.query(firstQuery, firstValues);
       if (!getUser) {
         return new Response(
@@ -55,7 +68,7 @@ export const POST: APIRoute = async ({ request }) => {
         paterno: userToCompare.usuario_apellido_paterno,        
         materno: userToCompare.usuario_apellido_materno,
         correo: userToCompare.usuario_correo,
-        plan: userToCompare.planes_id,
+        plan: userToCompare.planes_nombre,
         fechaReg: userToCompare.usuario_fechareg
       }
 

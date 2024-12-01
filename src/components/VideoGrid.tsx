@@ -16,7 +16,8 @@ export default function VideoGrid() {
         }
 
         const data = await response.json();
-
+        console.log(data.videos);
+        
         setVideos(data.videos)
         setLoading(false)
       } catch (error) {

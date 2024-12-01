@@ -39,7 +39,7 @@ const Header: React.FC = () => {
                 <img src="/RMA - SVG.svg" alt="logo-red-medical-advisor" width="140" height="140" />
             </div>
 
-            <a>
+            <a className='contenedor-menu-toggle'>
             <button className={`menu-toggle ${menuOpen ? 'open' : ''}`} onClick={toggleMenu}>
                 ☰
             </button>

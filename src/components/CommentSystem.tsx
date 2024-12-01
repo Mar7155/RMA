@@ -58,11 +58,11 @@ export default function CommentSystem() {
         console.log(data);
 
         const formattedComments = data.comentarios.map((item: any) => ({
-          id: parseInt(item.usuario_id_comentario) || Date.now(),
+          id: parseInt(item.id_comentario) || Date.now(),
           author: item.nombre_usuario || "Usuario Anónimo",
           avatar: '/placeholder.svg?height=40&width=40',
           content: item.texto_comentario,
-          date: new Date().toISOString().split('T')[0],
+          date: item.fechareg_comentario || new Date().toISOString().split('T')[0],
           likes: parseInt(item.cantidad_likes) || 0,
           isLiked: false,
           replies: [], 
@@ -92,22 +92,22 @@ export default function CommentSystem() {
             throw new Error(`Error: ${response.statusText}`);
           }
           const data = await response.json();
-          console.log(data);
+          console.log("respustas: ", data);
 
           const updatedComments = [...comments];
 
-          data.respuestas.forEach((reply: any) => {
+          data.respuestas.map((reply: any) => {
             const parentCommentIndex = updatedComments.findIndex(
               (comment) => comment.id === parseInt(reply.comentario_id_respuesta)
             );
 
             if (parentCommentIndex !== -1) {
               updatedComments[parentCommentIndex].replies.push({
-                id: parseInt(reply.usuario_id_respuesta),
+                id: parseInt(reply.comentario_id_respuesta),
                 author: reply.nombre_usuario || 'Usuario Anónimo',
                 avatar: '/placeholder.svg?height=40&width=40',
                 content: reply.texto_respuesta,
-                date: new Date().toISOString().split('T')[0],
+                date: reply.fecha_respuesta|| new Date().toISOString().split('T')[0],
                 likes: parseInt(reply.cantidad_likes_respuestas) || 0,
                 isLiked: false,
               });
@@ -189,7 +189,7 @@ export default function CommentSystem() {
       <h1>Foro</h1>
       <CommentForm onSubmit={addComment} />
       <div className="comments-list">
-        {comments.map(comment => (
+        {comments.map((comment, index) => (
           <Comment
             key={comment.id}
             comment={comment}

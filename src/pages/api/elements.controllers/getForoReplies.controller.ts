@@ -8,19 +8,21 @@ export const GET: APIRoute = async () => {
         respuestas.respuesta_texto as texto_respuesta,
         COUNT(likes_respuestas.respuesta_id) as cantidad_likes_respuestas,
         respuestas.comentarios_id as comentario_id_respuesta,
+        respuestas.respuesta_fecha as fecha_respuesta,
         usuarios.usuario_nombre as nombre_usuario
 
 FROM
     respuestas
-JOIN 
+LEFT JOIN 
     likes_respuestas ON respuestas.respuesta_id = likes_respuestas.respuesta_id
 JOIN
-    usuarios ON usuarios.usuario_id = respuestas.respuesta_id
+    usuarios ON usuarios.usuario_id = respuestas.usuario_id
 
 GROUP BY 
     respuestas.usuario_id,
     respuestas.respuesta_texto,
     respuestas.comentarios_id,
+    respuestas.respuesta_fecha,
     usuarios.usuario_nombre;
 `;
         const result = await pool.query(query);

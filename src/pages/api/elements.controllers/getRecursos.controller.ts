@@ -7,6 +7,7 @@ export const GET: APIRoute = async () => {
                 recursos.recursos_id,
                 recursos.recursos_titulo,
                 recursos.recursos_descripcion,
+                recursos.recursos_autor,
                 recursos.recursos_fecha,
                 recursos.recursos_url,
                 tipos.tipo_nombre,
@@ -21,8 +22,9 @@ export const GET: APIRoute = async () => {
 
         const query2 = `SELECT * FROM tipos`
         const query3 = `SELECT * FROM areas`
-
+        
         const result = await pool.query(query);
+        
         const result2 = await pool.query(query2);
         const result3 = await pool.query(query3);
 

@@ -34,7 +34,6 @@ function Recursos({ id }: { id: string }): JSX.Element {
           throw new Error('No se pudieron cargar los Recursos :(');
         }
         const data = await response.json();  
-        console.log(data.recursos);
         
         setRecursos(data.recursos);
         setLoading(false);

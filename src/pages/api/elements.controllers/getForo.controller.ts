@@ -4,22 +4,26 @@ import { pool } from "../db.ts";
 export const GET: APIRoute = async () => {
     try {
         const query = `SELECT 
+        comentarios.comentarios_id as id_comentario,
         comentarios.comentarios_texto as texto_comentario,
         comentarios.usuario_id as usuario_id_comentario,
+        comentarios.comentarios_fechareg as fecha_comentario,
         COUNT(likes.comentarios_id) as cantidad_likes,
         usuarios.usuario_nombre as nombre_usuario
 
 FROM
     comentarios
-JOIN 
+LEFT JOIN 
     likes ON comentarios.comentarios_id = likes.comentarios_id
 JOIN 
-    usuarios ON usuarios.usuario_id = comentarios.comentarios_id
+    usuarios ON usuarios.usuario_id = comentarios.usuario_id
 
 GROUP BY 
-    comentarios.comentarios_texto,
+    comentarios.comentarios_id,
     comentarios.usuario_id,
-    usuarios.usuario_nombre;
+    comentarios.comentarios_texto,
+    comentarios.comentarios_fechareg,
+    usuarios.usuario_nombre
 `;
         const result = await pool.query(query);
 
