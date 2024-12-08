@@ -1,10 +1,7 @@
 import { errors, jwtVerify } from "jose";
 import { defineMiddleware } from "astro/middleware";
-import { LOGIN_ROUTES, PUBLIC_ROUTES } from "./pages/api/config.ts";
+import { LOGIN_ROUTES, PUBLIC_ROUTES } from "./lib/middlewareRoutes";
 
-/**
-* Verify if the client token is valid. 
-*/
 const verifyAuth = async (token?: string) => {
 
   if (!token) {
@@ -15,7 +12,6 @@ const verifyAuth = async (token?: string) => {
   }
 
   try {
-    // The JWT secret 
     const secret = new TextEncoder().encode(import.meta.env.JWT_SECRET);
 
     const jwtVerifyResult = await jwtVerify(token, secret);

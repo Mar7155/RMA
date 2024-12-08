@@ -3,47 +3,47 @@ import { useState, type FormEvent } from "react";
 
 const Login: React.FC = () => {
     const [responseMessage, setResponseMessage] = useState("");
-    const [userData, setUserData] = useState<any>(null);
 
     async function submit(e: FormEvent<HTMLFormElement>) {
-        console.log("oal");
-        
+        setResponseMessage("Cargando... ^^")
+
         e.preventDefault();
         const formData = new FormData(e.target as HTMLFormElement);
-    
+        const userData = Object.fromEntries(formData.entries());
         try {
-            const response = await fetch("/api/controllers/login.controller", {
+            const response = await fetch("http://localhost:3000/getUser", {
                 method: "POST",
-                body: formData,        
-                credentials: "include",    
+                credentials: 'include',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(userData)
             });
-    
-            if (!response.ok) {
-                const errorData = await response.json();
-                setResponseMessage(errorData.message || "Error en el inicio de sesión");
+
+            const data = await response.json();
+            
+            localStorage.setItem('user', JSON.stringify(data.payload));
+            window.location.href = data.redirect;
+            
+            if (!data.ok) {
+                setResponseMessage(data.message || "Error en el inicio de sesión");
                 return;
             }
-            
-            const resJson = await response.json();      
 
-            if (resJson.redirect) {
-                window.location.href = resJson.redirect;
-            } 
-            if (resJson.message) {
-                setResponseMessage(resJson.message);
-            }
-            if(resJson.user) {
-                setUserData(resJson.user);
-                
+            if (data.message) {                
+                setResponseMessage(data.message + " espera...");                
             }
         } catch (error) {
             setResponseMessage("Error en la conexión");
+            console.log(error);
+            
         }
     }
 
     return (
         <section>
             <div className="login-container">
+                
                 <h1 className="login-title">Iniciar sesión</h1>
                 <form onSubmit={submit} className="login-form">
                     <div className="login-input-group">
@@ -76,6 +76,7 @@ const Login: React.FC = () => {
                 </form>
             </div>
         </section>
+        
     );
 };
 

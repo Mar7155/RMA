@@ -51,10 +51,14 @@ const { title } = Astro.props;
         width: 70%;
         height: 90%;
         background-color: white;
-        z-index: 2;
+        z-index: 10;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         overflow: hidden;
+    }
+
+    .layout2-content {
+        width: 45%;
     }
 
     .layout2-image {
@@ -64,6 +68,7 @@ const { title } = Astro.props;
         align-items: center;
         background-color: #f0f0f0;
         height: 100%;
+        z-index: 10;
     }
 
     .layout2-image img {
@@ -101,6 +106,10 @@ const { title } = Astro.props;
         background-color: #9b1c1c;
     }
 
+    .register-content {
+        display: flex;
+        flex-direction: row;
+    }
     .register-container {
         background-color: white;
         /*padding: 2rem;
@@ -124,7 +133,7 @@ const { title } = Astro.props;
     }
     .register-input-group {
         position: relative;
-        margin-bottom: .5rem;
+        margin-bottom: 0.5rem;
         box-sizing: border-box;
     }
     .register-input {
@@ -278,19 +287,101 @@ const { title } = Astro.props;
         cursor: pointer;
     }
 
+    .otp-container {
+        display: flex;
+        flex-direction: column;
+        margin: 0 2rem;
+        text-align: center;
+        gap: 1.5rem;
+    }
+
+    .svg-container {
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+    }
+
+    .otp-inputs {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .otp_input {
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        outline: none;
+        border-radius: 5px;
+        border: 2px solid #e6e6e6;
+        background-color: #ffff;
+        color: black;
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+        caret-color: #ff3131;
+        overflow-y: none;
+    }
+
+    .otp_input::-webkit-inner-spin-button,
+    .otp_input::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    .otp_input {
+        -moz-appearance: textfield;
+    }
+
+    .otp_input:focus {
+        border: 2px solid #ff3131;
+    }
+
+    .otp-verify {
+        width: 300px;
+        font-size: 16px;
+        padding: 14px;
+        margin: 0 auto;
+        background-color: #ff3131;
+        color: white;
+        border: none;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 600;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s all ease;
+    }
+
+    .otp-verify:hover {
+        background-color: #9b1c1c;
+    }
+
+    @keyframes moveComponent {
+        0% {
+            transform: translate(0, 0); /* Posición inicial */
+        }
+        100% {
+            transform: translate(100px, 0); /* Posición final */
+        }
+    }
+
+    .hidden {
+        display: none;
+    }
+
     @media (max-width: 978px) {
         .layout2-image {
             display: none;
         }
     }
     @media (max-width: 500px) {
-        .register-input{
+        .register-input {
             width: 14rem;
         }
-        .login-input{
+        .login-input {
             width: 200px;
         }
-        .login-container{
+        .login-container {
             width: 14rem;
         }
     }

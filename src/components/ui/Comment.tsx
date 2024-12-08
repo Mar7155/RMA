@@ -1,20 +1,26 @@
-import React, { useState } from 'react';
-import Rep from './Reply';
-import type { CommentType, Reply } from '../CommentSystem'; // Importar tipos necesarios
+import React, { useState } from "react";
+import Rep from "./Reply";
+import type { CommentType } from "../CommentSystem";
 
 interface CommentProps {
   comment: CommentType;
   handleLike: (commentId: number, isReply?: boolean, parentId?: number) => void;
-  addReply: (commentId: number, replyContent: string) => void; // Agregar esta línea
+  addReply: (commentId: number, replyContent: string) => Promise<void>;
 }
 
 export default function Comment({ comment, handleLike, addReply }: CommentProps) {
-  const [replyContent, setReplyContent] = useState(""); // Estado para el contenido de la respuesta
+  const [replyContent, setReplyContent] = useState("");
+  const [error, setError] = useState<string | null>(null);
 
-  const handleAddReply = () => {
+  const handleAddReply = async () => {
     if (replyContent.trim()) {
-      addReply(comment.id, replyContent); // Llamar a la función de respuesta con el id del comentario
-      setReplyContent(""); // Limpiar el campo de respuesta
+      try {
+        await addReply(comment.id, replyContent);
+        setReplyContent("");
+        setError(null);
+      } catch (err) {
+        setError("Error al enviar la respuesta. Intenta de nuevo.");
+      }
     }
   };
 
@@ -27,30 +33,33 @@ export default function Comment({ comment, handleLike, addReply }: CommentProps)
         <div className="comment-meta">
           <span className="date">{comment.date}</span>
           <button
-            className={`like-button ${comment.isLiked ? 'liked' : ''}`}
+            className={`like-button ${comment.isLiked ? "liked" : ""}`}
             onClick={() => handleLike(comment.id)}
           >
             👍 {comment.likes}
           </button>
+
         </div>
         <div className="replies">
-          {comment.replies.map(reply => (
+          {comment.replies.map((reply) => (
             <Rep
               key={reply.id}
               reply={reply}
               handleLike={handleLike}
-              parentId={comment.id} // Pasar el id del comentario padre
+              parentId={comment.id}
             />
           ))}
         </div>
-
         <div className="reply-form">
           <textarea
             value={replyContent}
             onChange={(e) => setReplyContent(e.target.value)}
             placeholder="Escribe una respuesta..."
           />
-          <button onClick={handleAddReply}>Responder</button>
+          <button onClick={handleAddReply} disabled={!replyContent.trim()}>
+            Responder
+          </button>
+          {error && <div className="error-message">{error}</div>}
         </div>
       </div>
     </div>

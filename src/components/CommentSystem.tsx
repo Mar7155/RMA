@@ -1,17 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import CommentForm from './ui/CommentForm';
-import Comment from './ui/Comment';
+import React, { useState, useEffect } from "react";
+import CommentForm from "./ui/CommentForm";
+import Comment from "./ui/Comment";
 
 export interface Reply {
   id: number;
   author: string;
   avatar: string;
   content: string;
+  comment: number;
   date: string;
   likes: number;
   isLiked: boolean;
 }
 
+interface LikeInfo {
+  comment_id: number;
+  reply_id?: number | null; // Opcional o puede ser null
+  user_id: number;
+  comment: boolean;
+  isLiked: boolean;
+}
 
 export interface CommentType extends Reply {
   replies: Reply[];
@@ -21,58 +29,51 @@ export default function CommentSystem() {
   const [comments, setComments] = useState<CommentType[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [repliesLoaded, setRepliesLoaded] = useState(false);
-  const [userDetails, setUserData] = useState<any>(null);
-  const [replyContent, setReplyContent] = useState(""); // Para manejar el contenido de las respuestas
-
-  // Cargar los comentarios
-  useEffect(() => {
-    const chekAuth = async () => {
-      try {
-        const response = await fetch('/api/controllers/verify.controller', {
-          method: 'GET',
-          credentials: 'include',
-        });
-
-        const data = await response.json();
-        if (data.isValid) {                    
-          setUserData(data.userData);
-        }
-      } catch (error) {
-        console.error('error al verficar usuario', error);
-      }
-    };
-    chekAuth();
-  }, []);
+  const [userDetails, setUserDetails] = useState<any>(null);
 
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const response = await fetch("/api/elements.controllers/getForo.controller", {
-          method: "GET",
+        const userData = localStorage.getItem("user");
+        const dataArray = userData ? JSON.parse(userData) : null;
+        setUserDetails(dataArray);
+
+        const response = await fetch("http://localhost:3000/getComments", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
         });
+
         if (!response.ok) {
           throw new Error(`Error: ${response.statusText}`);
         }
-        const data = await response.json();
-        console.log(data);
 
-        const formattedComments = data.comentarios.map((item: any) => ({
-          id: parseInt(item.id_comentario) || Date.now(),
-          author: item.nombre_usuario || "Usuario Anónimo",
-          avatar: '/placeholder.svg?height=40&width=40',
-          content: item.texto_comentario,
-          date: item.fechareg_comentario || new Date().toISOString().split('T')[0],
-          likes: parseInt(item.cantidad_likes) || 0,
-          isLiked: false,
-          replies: [], 
+        const data = await response.json();
+
+        const formattedComments = data.map((item: any) => ({
+          id: item.comentario_id,
+          author: `${item.usuario.usuario_nombre} ${item.usuario.usuario_apellidos}`,
+          avatar: "/placeholder.svg?height=40&width=40",
+          content: item.comentario_texto,
+          date: new Date(item.fecha_reg).toLocaleDateString(),
+          likes: item.likes.length,
+          isLiked: item.likes.some((like: any) => like.usuario_id === dataArray?.id), // Verificar si el usuario dio like
+          replies: item.respuestas.map((reply: any) => ({
+            id: reply.respuesta_id,
+            author: `${reply.usuario.usuario_nombre} ${reply.usuario.usuario_apellidos}`,
+            avatar: "/placeholder.svg?height=40&width=40",
+            content: reply.respuesta_texto,
+            date: new Date(reply.respuesta_fecha).toLocaleDateString(),
+            likes: reply.likesRespuestas.length,
+            isLiked: reply.likesRespuestas.some((like: any) => like.usuario_id === dataArray?.id),
+          })),
         }));
 
         setComments(formattedComments);
         setIsLoading(false);
       } catch (error: any) {
         setError(error.message);
-      } finally {
         setIsLoading(false);
       }
     };
@@ -80,107 +81,154 @@ export default function CommentSystem() {
     fetchComments();
   }, []);
 
-  // Cargar las respuestas y asociarlas a los comentarios correspondientes
-  useEffect(() => {
-    if (!repliesLoaded) {
-      const fetchReplies = async () => {
-        try {
-          const response = await fetch("/api/elements.controllers/getForoReplies.controller", {
-            method: "GET",
-          });
-          if (!response.ok) {
-            throw new Error(`Error: ${response.statusText}`);
-          }
-          const data = await response.json();
-          console.log("respustas: ", data);
 
-          const updatedComments = [...comments];
 
-          data.respuestas.map((reply: any) => {
-            const parentCommentIndex = updatedComments.findIndex(
-              (comment) => comment.id === parseInt(reply.comentario_id_respuesta)
-            );
 
-            if (parentCommentIndex !== -1) {
-              updatedComments[parentCommentIndex].replies.push({
-                id: parseInt(reply.comentario_id_respuesta),
-                author: reply.nombre_usuario || 'Usuario Anónimo',
-                avatar: '/placeholder.svg?height=40&width=40',
-                content: reply.texto_respuesta,
-                date: reply.fecha_respuesta|| new Date().toISOString().split('T')[0],
-                likes: parseInt(reply.cantidad_likes_respuestas) || 0,
-                isLiked: false,
-              });
-            }
-          });
-
-          setComments(updatedComments);
-          setRepliesLoaded(true); // Marcar que las respuestas ya fueron cargadas
-        } catch (error: any) {
-          setError(error.message);
-        }
-      };
-
-      fetchReplies();
-    }
-  }, [comments, repliesLoaded]);
-
-  if (isLoading) return <p>Cargando comentarios...</p>;
+  if (isLoading) return <p>Cargando comentarios... ^^</p>;
   if (error) return <p>Error al cargar comentarios: {error}</p>;
 
-  const addComment = (content: string) => {
+  const addComment = async (content: string) => {
     const newComment: CommentType = {
-      id: Date.now(),
-      author: `${userDetails?.nombre} ${userDetails?.paterno}`,
-      avatar: '/placeholder.svg?height=40&width=40',
+      id: userDetails?.id,
+      author: `${userDetails?.nombre || "Usuario"} ${userDetails?.apellidos || ""}`,
+      avatar: "/placeholder.svg?height=40&width=40",
       content,
-      date: new Date().toISOString().split('T')[0],
+      date: new Date().toISOString().split("T")[0],
       likes: 0,
       isLiked: false,
       replies: [],
+      comment: 0
     };
+
     setComments([newComment, ...comments]);
+    try {
+      const response = await fetch("http://localhost:3000/saveComment", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(newComment),
+      });
+
+      if (!response.ok) {
+        console.error("uy, error al guardar el comentario");
+        return;
+      }
+
+    } catch (error) {
+      console.error("error al postear ;( " + error);
+
+    }
+
   };
 
-  const handleLike = (commentId: number, isReply: boolean = false, parentId?: number) => {
-    setComments(prevComments =>
-      prevComments.map(comment => {
-        if (!isReply && comment.id === commentId) {
-          return { ...comment, likes: comment.isLiked ? comment.likes - 1 : comment.likes + 1, isLiked: !comment.isLiked };
-        } else if (isReply && parentId && comment.id === parentId) {
-          return {
-            ...comment,
-            replies: comment.replies.map(reply =>
-              reply.id === commentId
-                ? { ...reply, likes: reply.isLiked ? reply.likes - 1 : reply.likes + 1, isLiked: !reply.isLiked }
-                : reply
-            ),
-          };
+  const handleLike = async (commentId: number, isReply: boolean = false, parentId?: number) => {
+    const likeUpdates: LikeInfo[] = []; // Inicialización vacía
+  
+    const updatedComments = comments.map((comment) => {
+      if (!isReply && comment.id === commentId) {
+        likeUpdates.push({
+          comment_id: commentId,
+          user_id: userDetails.id,
+          comment: true,
+          isLiked: !comment.isLiked,
+        });
+  
+        return {
+          ...comment,
+          likes: comment.isLiked ? comment.likes - 1 : comment.likes + 1,
+          isLiked: !comment.isLiked,
+        };
+      } else if (isReply && parentId && comment.id === parentId) {
+        const updatedReplies = comment.replies.map((reply) => {
+          if (reply.id === commentId) {
+            likeUpdates.push({
+              comment_id: reply.id,
+              user_id: userDetails.id,
+              comment: false,
+              isLiked: !reply.isLiked,
+            });
+  
+            return {
+              ...reply,
+              likes: reply.isLiked ? reply.likes - 1 : reply.likes + 1,
+              isLiked: !reply.isLiked,
+            };
+          }
+          return reply;
+        });
+  
+        return {
+          ...comment,
+          replies: updatedReplies,
+        };
+      }
+      return comment;
+    });
+  
+    const likeInfo = likeUpdates[0]
+    setComments(updatedComments);
+    
+      try {
+        const response = await fetch("http://localhost:3000/saveLike", {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify(likeInfo), // Array completo
+        });
+  
+        if (!response.ok) {
+          console.error("Error al guardar el like");
         }
-        return comment;
-      })
-    );
+      } catch (error) {
+        console.error("Error al enviar la solicitud de like: ", error);
+      }
   };
+  
+  
 
-  const addReply = (commentId: number, replyContent: string) => {
+
+  const addReply = async (commentId: number, replyContent: string) => {
     if (replyContent.trim()) {
       const newReply: Reply = {
-        id: Date.now(),
-        author: `${userDetails?.nombre} ${userDetails?.paterno}`,
-        avatar: '/placeholder.svg?height=40&width=40',
+        id: userDetails.id,
+        author: `${userDetails?.nombre || "Usuario"} ${userDetails?.apellidos || ""}`,
+        avatar: "/placeholder.svg?height=40&width=40",
         content: replyContent,
-        date: new Date().toISOString().split('T')[0],
+        comment: commentId,
+        date: new Date().toISOString().split("T")[0],
         likes: 0,
         isLiked: false,
       };
 
-      setComments(prevComments =>
-        prevComments.map(comment =>
+      setComments((prevComments) =>
+        prevComments.map((comment) =>
           comment.id === commentId
             ? { ...comment, replies: [...comment.replies, newReply] }
             : comment
         )
       );
+
+      try {
+        const response = await fetch("http://localhost:3000/saveReply", {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify(newReply),
+        });
+
+        if (!response.ok) {
+          console.error("uy, error al guardar la respuesta");
+          return;
+        }
+
+      } catch (error) {
+        console.error("error al guardar la respuesta: " + error);
+
+
+      }
     }
   };
 
@@ -189,12 +237,12 @@ export default function CommentSystem() {
       <h1>Foro</h1>
       <CommentForm onSubmit={addComment} />
       <div className="comments-list">
-        {comments.map((comment, index) => (
+        {comments.map((comment) => (
           <Comment
             key={comment.id}
             comment={comment}
             handleLike={handleLike}
-            addReply={addReply} // Pasar la función para agregar respuestas
+            addReply={addReply}
           />
         ))}
       </div>

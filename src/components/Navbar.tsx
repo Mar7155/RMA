@@ -10,12 +10,7 @@ const Header: React.FC = () => {
     useEffect(() => {
         const verifyAuth = async () => {
             try {
-                const response = await fetch('/api/controllers/verify.controller', {
-                    method: 'GET',
-                    credentials: 'include'
-                });
-                const data = await response.json();
-                if (data.isValid) {
+                if (localStorage.getItem('user')) {
                     setIsLoggedIn(true);
                     setTimeout(() => {
                         setUserLogged(true);

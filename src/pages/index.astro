@@ -3,13 +3,8 @@ import Layout from "../layouts/Layout.astro";
 import TopicsGrid from "@/components/TopicsGrid";
 import ResourceCard from "@/components/ResourceCard.astro";
 import Home from "@/components/Home";
-import { sql } from "../lib/neon";
 import CardSuscription from "@/components/CardSuscription.astro";
 
-const response = await sql`SELECT NOW() as current_time`;
-const currentTime = response[0].current_time;
-
-console.log(currentTime);
 ---
 
 <Layout title="Red Medical Advisor.">

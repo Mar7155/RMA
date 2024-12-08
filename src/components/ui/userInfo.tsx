@@ -9,11 +9,15 @@ export default function userInfo() {
 
     const handleLogout = async () => {
         try {
-            const response = await fetch("/api/controllers/logout.controller", {
+            const response = await fetch("http://localhost:3000/logout", {
                 method: 'GET',
                 credentials: 'include'
             })
-            const data = await response.json();
+            if (!response.ok) {
+                console.log("ha ocurrido un error ;(");
+                return;
+            }
+            localStorage.removeItem('user');
             window.location.href = '/'
         } catch (error) {
             console.error("error al cerrar sesion: ", error);
@@ -45,14 +49,10 @@ export default function userInfo() {
     useEffect(() => {
         const chekAuth = async () => {
             try {
-                const response = await fetch('/api/controllers/verify.controller', {
-                    method: 'GET',
-                    credentials: 'include',
-                })
-
-                const data = await response.json();
-                if (data.isValid) {                    
-                    setUserData(data.userData);
+                const data = localStorage.getItem("user");
+                if (data) {
+                    const dataArray = data ? JSON.parse(data) : [];                    
+                    setUserData(dataArray);                       
                 }
 
             } catch (error) {
@@ -84,7 +84,7 @@ export default function userInfo() {
                             <path fill="#dc2626" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m0 4c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6m0 14c-2.03 0-4.43-.82-6.14-2.88a9.95 9.95 0 0 1 12.28 0C16.43 19.18 14.03 20 12 20"></path>
                         </svg>
                         <div className="user-details">
-                            <h2>{userDetails?.nombre + " " + userDetails?.paterno} </h2>
+                            <h2>{userDetails?.nombre + " " + userDetails?.apellidos} </h2>
                             <p className="user-email">{userDetails?.correo}</p>
                         </div>
                     </div>

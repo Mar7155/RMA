@@ -4,33 +4,27 @@ import React, { useState, useEffect } from 'react';
 const Profile: React.FC = () => {
 
 
-    const [userDetails, setUserData] = useState<any>(null);
+  const [userDetails, setUserData] = useState<any>(null);
 
-    useEffect(() => {
-        const chekAuth = async () => {
-            try {
-                const response = await fetch('/api/controllers/verify.controller', {
-                    method: 'GET',
-                    credentials: 'include',
-                })
-
-                const data = await response.json();
-                console.log(data);
-                
-                if (data.isValid) {
-                    setUserData(data.userData);
-                }
-
-            } catch (error) {
-                console.error('error al verficar usuario', error)
-
-            }
+  useEffect(() => {
+    const chekAuth = async () => {
+      try {
+        const data = localStorage.getItem("user");
+        if (data) {
+          const dataArray = data ? JSON.parse(data) : [];
+          setUserData(dataArray);
         }
-        chekAuth();
-    }, [])
+
+      } catch (error) {
+        console.error('error al verficar usuario', error)
+
+      }
+    }
+    chekAuth();
+  }, [])
 
 
-    return (
+  return (
     <section className="editConten">
       <div className="edit-card">
         <h1 className="edit-title">Tu cuenta</h1>
@@ -42,7 +36,7 @@ const Profile: React.FC = () => {
           <div className="photo-buttons">
             {/*<button className="save-button" type="button">Cambiar la foto</button>
             <button className="save-button bordered cancel-button" type="button">Quitar la foto</button>
-            */}  
+            */}
           </div>
         </div>
 
@@ -55,9 +49,9 @@ const Profile: React.FC = () => {
             </div>
           </div>
           <div className="input-group">
-            <label className="edit-label">Apellido Paterno</label>
+            <label className="edit-label">Apellidos</label>
             <div className="value-group">
-              <input className="edit-input" type="text" value={userDetails ? userDetails.paterno : 'Cargando...'} readOnly />
+              <input className="edit-input" type="text" value={userDetails ? userDetails.apellidos : 'Cargando...'} readOnly />
               <button className="save-button" type="button">Editar</button>
             </div>
           </div>
@@ -65,28 +59,28 @@ const Profile: React.FC = () => {
 
         <div className="row-group">
           <div className="input-group">
-            <label className="edit-label">Apellido Materno</label>
+            <label className="edit-label">Correo Electronico</label>
             <div className="value-group">
-              <input className="edit-input" type="text" value={userDetails ? userDetails.materno : 'Cargando...'} readOnly />
+              <input className="edit-input" type="text" value={userDetails ? userDetails.correo : 'Cargando...'} readOnly />
               <button className="save-button" type="button">Editar</button>
             </div>
           </div>
           <div className="input-group">
-            <label className="edit-label">Correo Electrónico</label>
+            <label className="edit-label">Cumpleaños</label>
             <div className="value-group">
-              <input className="edit-input" type="email" value={userDetails ? userDetails.correo : 'Cargando...'} readOnly />
+              <input className="edit-input" type="email" value={userDetails ? userDetails.cumple : 'Cargando...'} readOnly />
               <button className="save-button" type="button">Editar</button>
             </div>
           </div>
         </div>
 
-        <div className="input-group">
+        {/*<div className="input-group">
           <label className="edit-label">Contraseña</label>
           <div className="value-group">
             <input className="edit-input full-width" type="password" value="*********" readOnly />
-            {/*<button className="save-button bordered" type="button">Editar</button>*/}
+            <button className="save-button bordered" type="button">Editar</button>
           </div>
-        </div>
+        </div>*/}
 
         <div className="input-group plan-group">
           <div className="divider"></div>
