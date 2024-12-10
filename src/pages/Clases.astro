@@ -8,8 +8,8 @@ import VideoGrid from '../components/VideoGrid'
 	<main>
         <section class="clases_hero">
             <div class="section_title">
-                <h1>Amplíe su experiencia médica</h1>
-                <p>Explora nuestra selección curada de cursos en línea en el área de medicina, abarcando una amplia gama de temas para profundizar tu conocimiento y habilidades clínicas</p>
+                <h1 class="text-3xl mt-4 font-semibold">Amplíe su experiencia médica</h1>
+                <p class="pt-8 text-center mb-16">Explora nuestra selección curada de cursos en línea en el área de medicina, abarcando una amplia gama de temas para profundizar tu conocimiento y habilidades clínicas</p>
             </div>
             <VideoGrid client:load></VideoGrid>
         </section>
@@ -27,7 +27,7 @@ import VideoGrid from '../components/VideoGrid'
         margin-bottom: 3rem;
     }
     .section_title{       
-        width: 80%; 
+        width: 50%; 
         display: flex;
         justify-content: center;
         flex-direction: column;
@@ -35,15 +35,10 @@ import VideoGrid from '../components/VideoGrid'
         text-align: center;
     }
 
-    .section_title h1{        
-        font-size: 28px;
-        margin-top: 1rem;
-    }
 
-    .section_title p{
-        padding-top: 2rem;
-        text-align: center;
-        color: #777;
-        margin-bottom: 4rem;
+    @media (max-width: 800px) {
+        .section_title{
+            width: 70%;
+        }
     }
 </style>

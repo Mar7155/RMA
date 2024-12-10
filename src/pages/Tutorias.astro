@@ -1,29 +1,25 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import MyCalendar from "@/components/Calendario.tsx";
-
+import TutoriasInterface from "@/components/Tutorias";
 ---
 
 <Layout title="Tutorias">
     <div class="title">
-        <h1>Reserva una Asesoria</h1>
+        <h1 class="text-3xl mt-4 font-semibold">Reserva una Asesoria</h1>
     </div>
     <section class="contenedor-tutorias">
-        
-        <MyCalendar client:idle></MyCalendar>
+        <TutoriasInterface client:idle/>
     </section>
 </Layout>
 
 <style>
-    .contenedor-tutorias{
+    .contenedor-tutorias {
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 80vh;
-        width: auto;
-        gap: 4rem;
     }
-    .title{
+    .title {
         display: flex;
         justify-content: center;
         align-items: center;

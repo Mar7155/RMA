@@ -9,7 +9,7 @@ import CardSuscription from "@/components/CardSuscription.astro";
 
 <Layout title="Red Medical Advisor.">
 	<main>
-		<section class="inicio-contenedor">
+		<section class="flex justify-center items-center p-20 w-auto text-white">
 			<Home />
 		</section>
 		<section class="inicio-temas">
@@ -75,25 +75,6 @@ import CardSuscription from "@/components/CardSuscription.astro";
 		color: rgb(0, 0, 0);
 	}
 
-	.inicio-contenedor {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		padding: 5rem;
-		width: auto;
-		height: 50vh;
-		color: white;
-	}
-
-	.inicio-contenedor h1 {
-		font-size: 48px;
-		font-weight: 700;
-	}
-	.inicio-contenedor h3 {
-		font-size: 18px;
-		font-weight: 300;
-		color: rgb(231, 231, 231);
-	}
 
 	.inicio-temas {
 		display: flex;
@@ -126,9 +107,7 @@ import CardSuscription from "@/components/CardSuscription.astro";
 		); /* Flexibilidad en el número de columnas */
 		gap: 2rem;
 		margin: 0 auto;
-		margin-bottom: 10rem;
-		padding: 3rem 5%; /* Reduce los márgenes en pantallas pequeñas */
-	}
+		margin-bottom: 10rem;}
 
 	.inicio-temas {
 		padding: 5rem 0rem;

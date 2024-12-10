@@ -234,7 +234,7 @@ export default function CommentSystem() {
 
   return (
     <div className="comment-system">
-      <h1>Foro</h1>
+      <h1 className="text-3xl mt-4 font-semibold">Foro</h1>
       <CommentForm onSubmit={addComment} />
       <div className="comments-list">
         {comments.map((comment) => (
