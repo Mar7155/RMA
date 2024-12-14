@@ -1,7 +1,5 @@
-'use client'
-
-import { useState, useMemo } from 'react'
-import { format } from 'date-fns'
+import { useState, useMemo, useEffect } from 'react'
+import { format, isBefore, startOfToday, addMonths, isSameDay, isAfter } from 'date-fns'
 import { Calendar } from '@/components/ui/calendar'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
@@ -17,11 +15,47 @@ import { Button } from '@/components/ui/button'
 import { Clock, Users, BookOpen } from 'lucide-react'
 
 export default function BookingPage() {
+
+  const [loading, setLoading] = useState(true);
+
+  /* setear info de los tutores*/
+
+  /* consultar citas*/
   const [date, setDate] = useState<Date | undefined>(undefined)
   const [advisor, setAdvisor] = useState('')
   const [topic, setTopic] = useState('')
   const [duration, setDuration] = useState('')
   const [selectedTime, setSelectedTime] = useState<string | undefined>(undefined)
+
+  const today = startOfToday();
+  const range = addMonths(today, 2);
+
+  useEffect(() => {
+    const fetchTutores = async () => {
+      try {
+        console.log("oal");
+
+        const response = await fetch("http://localhost:3000/getAdvisorsInfo", {
+          method: "GET",
+        })
+
+        if (!response.ok) {
+          console.error("a ocurrido un error, nse");
+
+        }
+
+        const data = await response.json()
+        console.log(data);
+
+        setLoading(false)
+
+      } catch (error) {
+        console.error(error);
+
+      }
+    }
+    fetchTutores()
+  }, [])
 
   const advisors = [
     { id: '1', name: 'Dr. Sarah Wilson', expertise: 'Business Strategy' },
@@ -56,8 +90,24 @@ export default function BookingPage() {
     return times
   }, [date])
 
-  console.log(date);
-  
+  const reservation = (() => {
+    console.log(advisor);
+    console.log(topic);
+    console.log(duration);
+    if (date) {
+      const dateformat = format(date, 'dd-MM-yyyy');
+      console.log(dateformat);
+
+    }
+    console.log(duration);
+    console.log(selectedTime);
+
+  })
+
+  if (loading) {
+    return <div>Cargando...</div>;
+  }
+
   return (
     <div className="container mx-auto py-10">
       <div className="grid md:grid-cols-2 gap-6">
@@ -71,11 +121,11 @@ export default function BookingPage() {
           <CardContent>
             <Select value={advisor} onValueChange={setAdvisor}>
               <SelectTrigger>
-                <SelectValue placeholder="Choose an advisor" />
+                <SelectValue placeholder="Tutores" />
               </SelectTrigger>
               <SelectContent className="bg-white">
                 <SelectGroup>
-                  <SelectLabel>Available Advisors</SelectLabel>
+                  <SelectLabel>Tutores disponibles</SelectLabel>
                   {advisors.map((adv) => (
                     <SelectItem key={adv.id} value={adv.id}>
                       <div>
@@ -90,21 +140,21 @@ export default function BookingPage() {
           </CardContent>
         </Card>
 
-        <Card>
+        {advisor && (<Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <BookOpen className="h-5 w-5" />
-              Temas
+              Selecciona un tema
             </CardTitle>
           </CardHeader>
           <CardContent>
             <Select value={topic} onValueChange={setTopic}>
               <SelectTrigger>
-                <SelectValue placeholder="Choose a topic" />
+                <SelectValue placeholder="Temas" />
               </SelectTrigger>
               <SelectContent className="bg-white">
                 <SelectGroup>
-                  <SelectLabel>Consultation Topics</SelectLabel>
+                  <SelectLabel>Temas para consultar</SelectLabel>
                   {topics.map((t) => (
                     <SelectItem key={t} value={t}>
                       {t}
@@ -114,23 +164,23 @@ export default function BookingPage() {
               </SelectContent>
             </Select>
           </CardContent>
-        </Card>
+        </Card>)}
 
-        <Card>
+        {topic && (<Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Clock className="h-5 w-5" />
-              Duracion
+              Selecciona una duracion
             </CardTitle>
           </CardHeader>
           <CardContent>
             <Select value={duration} onValueChange={setDuration}>
               <SelectTrigger>
-                <SelectValue placeholder="Choose duration" />
+                <SelectValue placeholder="Duracion" />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectLabel>Session Length</SelectLabel>
+                  <SelectLabel>Duracion de la sesión</SelectLabel>
                   {durations.map((d) => (
                     <SelectItem key={d.value} value={d.value}>
                       {d.label}
@@ -140,11 +190,11 @@ export default function BookingPage() {
               </SelectContent>
             </Select>
           </CardContent>
-        </Card>
+        </Card>)}
 
-        <Card>
+        {duration && (<Card>
           <CardHeader>
-            <CardTitle>Hora y Fecha</CardTitle>
+            <CardTitle>Selecciona Hora y Fecha</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <Calendar
@@ -152,15 +202,20 @@ export default function BookingPage() {
               selected={date}
               onSelect={setDate}
               className=" flex justify-center rounded-lg"
+              disabled={(date) =>
+                isBefore(date, today) ||
+                isAfter(date, range) ||
+                isSameDay(date, range)
+              }
             />
             {date && (
               <Select value={selectedTime} onValueChange={setSelectedTime}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select time" />
+                  <SelectValue placeholder={`Seleccione la hora para el: ${format(date, 'dd-MM-yyyy')}`} />
                 </SelectTrigger>
                 <SelectContent className="bg-white">
                   <SelectGroup>
-                    <SelectLabel>Available Times</SelectLabel>
+                    <SelectLabel>Horas disponibles</SelectLabel>
                     {availableTimes.map((time) => (
                       <SelectItem key={time} value={time}>
                         {time}
@@ -171,16 +226,17 @@ export default function BookingPage() {
               </Select>
             )}
           </CardContent>
-        </Card>
+        </Card>)}
       </div>
 
       <div className="mt-8 flex justify-center">
         <Button
+          onClick={reservation}
           size="lg"
           disabled={!advisor || !topic || !duration || !date || !selectedTime}
           className="w-full max-w-md bg-red-500 hover:bg-red-700/90 rounded-xl"
         >
-          Book Consultation
+          Consultar Cita
         </Button>
       </div>
     </div>
