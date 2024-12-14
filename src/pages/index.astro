@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import TopicsGrid from "@/components/TopicsGrid";
-import ResourceCard from "@/components/ResourceCard.astro";
+import ResourceCard from "@/components/ui/ResourceCard.astro";
 import Home from "@/components/Home";
 import CardSuscription from "@/components/CardSuscription.astro";
 
@@ -9,7 +9,7 @@ import CardSuscription from "@/components/CardSuscription.astro";
 
 <Layout title="Red Medical Advisor.">
 	<main>
-		<section class="flex justify-center items-center p-20 w-auto text-white">
+		<section class="flex justify-center items-center px-20 py-40 w-auto text-white">
 			<Home />
 		</section>
 		<section class="inicio-temas">
@@ -34,7 +34,7 @@ import CardSuscription from "@/components/CardSuscription.astro";
 				<ResourceCard
 					icon="🔬"
 					title="Foro"
-					description="Platica con una comunidad de medicos y expandan juntos sus conocimientos"
+					description="Platíca con una comunidad de medicos y expandan juntos sus conocimientos"
 					link="/Foro"
 				/>
 				<ResourceCard

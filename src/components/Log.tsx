@@ -21,30 +21,36 @@ const Login: React.FC = () => {
             });
 
             const data = await response.json();
-            
-            localStorage.setItem('user', JSON.stringify(data.payload));
-            window.location.href = data.redirect;
-            
+
+
+            if (data.payload) {
+                localStorage.setItem('user', JSON.stringify(data.payload));
+            }
+
+            if (data.redirect) {
+                window.location.href = data.redirect;
+            }
+
             if (!data.ok) {
                 setResponseMessage(data.message || "Error en el inicio de sesión");
                 return;
             }
 
-            if (data.message) {                
-                setResponseMessage(data.message + " espera...");                
+            if (data.message) {
+                setResponseMessage(data.message + " espera...");
             }
         } catch (error) {
             setResponseMessage("Error en la conexión");
             console.log(error);
-            
+
         }
     }
 
     return (
         <section>
             <div className="login-container">
-                
-                <h1 className="login-title">Iniciar sesión</h1>
+
+                <h1 className="login-title text-3xl font-semibold">Iniciar sesión</h1>
                 <form onSubmit={submit} className="login-form">
                     <div className="login-input-group">
                         <input
@@ -76,7 +82,7 @@ const Login: React.FC = () => {
                 </form>
             </div>
         </section>
-        
+
     );
 };
 

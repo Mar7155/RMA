@@ -1,6 +1,6 @@
 import { errors, jwtVerify } from "jose";
 import { defineMiddleware } from "astro/middleware";
-import { LOGIN_ROUTES, PUBLIC_ROUTES } from "./lib/middlewareRoutes";
+import { LOGED_ROUTES, LOGIN_ROUTES, PUBLIC_ROUTES } from "./lib/middlewareRoutes";
 
 const verifyAuth = async (token?: string) => {
 
@@ -41,6 +41,10 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
   if (PUBLIC_ROUTES.includes(context.url.pathname)) {
     // Respond as usual 
+    return next();
+  }
+
+  if (LOGED_ROUTES.includes(context.url.pathname) && lrToken) {
     return next();
   }
 

@@ -158,7 +158,7 @@ const Register: React.FC = () => {
             ) : (
                 <div className={``}>
                     <div className="register-container">
-                        <h1 className="register-title">Registrar Cuenta</h1>
+                        <h1 className="register-title text-3xl font-semibold">Registrar Cuenta</h1>
                         <form onSubmit={handleRegister} id="register-form" className="register-form" method="post">
                             <div className="register-input-group">
                                 <input
