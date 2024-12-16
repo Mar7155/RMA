@@ -45,10 +45,10 @@ function Calendar({
         day_today: "bg-red-200/50 text-accent-foreground",
         day_outside:
           "day-outside text-gray-300 aria-selected:bg-accent/50 aria-selected:text-gray-300",
-        day_disabled: "text-gray-300 opacity-50",
+        day_disabled: "text-gray-400 opacity-50",
         day_range_middle:
           "aria-selected:bg-accent aria-selected:text-accent-foreground",
-        day_hidden: "bg-red-500 invisible",
+        day_hidden: "",
         ...classNames,
       }}
       components={{
