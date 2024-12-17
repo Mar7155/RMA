@@ -2,17 +2,18 @@
 import Layout from "../../layouts/Layout.astro";
 import Pdf from "../../components/ui/pdfViewer";
 
-const { id } = Astro.params;
+const { producto_id } = Astro.params;
 const url = new URL(Astro.request.url); // Accedemos a la URL completa
 const titulo = url.searchParams.get("titulo"); // Obtenemos el parámetro 'titulo'
 const descripcion = url.searchParams.get("descripcion");
 const tipo = url.searchParams.get("tipo");
 const area = url.searchParams.get("area");
 //const link = url.searchParams.get('url');
+
 const link = "/PsicofarmacologíaParaPsicólogos.pdf";
 ---
 
-<Layout title=`Recursos ${id}`>
+<Layout title=`Recursos ${producto_id}`>
     <main>
         <div>
             <section class="clases_hero">

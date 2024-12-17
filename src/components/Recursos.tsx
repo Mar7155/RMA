@@ -13,7 +13,7 @@ import {
 
 type Checked = DropdownMenuCheckboxItemProps["checked"];
 
-const Recursos: React.FC<{ id: string }> = ({ id }) => {
+const Recursos: React.FC<{ id: string }> = () => {
   const [recursos, setRecursos] = useState<any[]>([]);
   const [filteredRecursos, setFilteredRecursos] = useState<any[]>([]);
   const [areas, setAreas] = useState<string[]>([]);
@@ -102,6 +102,8 @@ const Recursos: React.FC<{ id: string }> = ({ id }) => {
         }
 
         const data = await response.json();
+        
+        console.log(data.Productos);
         
         setRecursos(data.Productos);
         setLoading(false);
