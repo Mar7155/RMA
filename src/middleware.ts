@@ -43,7 +43,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
  
   const isLoggedRoute =
-    LOGED_ROUTES.includes(currentPath) || /^\/views\/[^/]+$/.test(currentPath);
+    LOGED_ROUTES.includes(currentPath) || /^\/views\/[^/]+$/.test(currentPath) || /^\/viewsClase\/[^/]+$/.test(currentPath);
 
   if (isLoggedRoute && lrToken) {
     return next();

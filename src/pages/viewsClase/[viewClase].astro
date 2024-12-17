@@ -7,11 +7,11 @@ const titulo = url.searchParams.get("titulo"); // Obtenemos el parámetro 'titul
 const descripcion = url.searchParams.get("descripcion");
 const link = url.searchParams.get("link");
 const duracion = url.searchParams.get("duracion")
-const { id } = Astro.params;
+const { producto_id } = Astro.params;
 
 ---
 
-<Layout title=`Clase ${titulo}`>
+<Layout title=`Clase ${producto_id}`>
     <main class="main-content">
         <div class="video-container">
             <div class="video-player">

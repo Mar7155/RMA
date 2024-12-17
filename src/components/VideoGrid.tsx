@@ -59,7 +59,7 @@ export default function VideoGrid() {
                 alt={video.producto_nombre}
                 className="video-thumbnail"
               />
-              <button onClick={() => showVideo(video.producto_id, video.producto_nombre, video.video_url, video.producto_descripcion, video.producto_autor)} className="video-play-button">▶</button>
+              <button onClick={() => showVideo(video.producto_id, video.producto_nombre, video.producto_descripcion, video.video_url, video.producto_autor)} className="video-play-button">▶</button>
             </div>
             <div className="video-content">
               <div className='video-info'>
