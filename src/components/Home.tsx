@@ -5,13 +5,11 @@ export default function Home() {
     return (
         <section className="home-section">
             <div className="home-content">
-                <h1 className="text-5xl font-bold">Bienvenido a RedMedicalAdvisor</h1>
+                <h1 className="home-headline">Bienvenido a RedMedicalAdvisor</h1>
                 <p className="home-description">
                     Tu plataforma de aprendizaje para la carrera de Médico Cirujano. Explora, aprende y crece con nosotros.
                 </p>
-                <a href="#suscripciones">
-                    <button className="home-cta-button">Ver Precios</button>
-                </a>
+                <button className="home-cta-button">Activa tú cuenta</button>
             </div>
             {/*<div className="home-image-section">
                 <img src="/placeholder.svg?height=400&width=400" alt="Successful learner" className="home-learner-image" />

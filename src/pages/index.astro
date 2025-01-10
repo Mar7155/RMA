@@ -4,6 +4,7 @@ import TopicsGrid from "@/components/TopicsGrid";
 import ResourceCard from "@/components/ui/ResourceCard.astro";
 import Home from "@/components/Home";
 import CardSuscription from "@/components/CardSuscription.astro";
+import MemberCard from "@/components/ui/cardMember";
 
 ---
 
@@ -45,23 +46,29 @@ import CardSuscription from "@/components/CardSuscription.astro";
 				/>
 			</div>
 		</section>
-		<section id="suscripciones" class="inicio-planes">
-			<h2>Suscripciones</h2>
+		<section id="conocenos" class="inicio-conocenos">
+			<h2>Conoceno a nuestro equipo</h2>
 			<div class="planes-grid">
-				<CardSuscription
-					title="Gratis"
-					description="Contenido limitado, pero suficiente"
-					price="$00.00"
+				<MemberCard
+					member={{
+						name: "Abdiel Avila",
+						date: "2024",
+						image: "/perfil1.webp"
+					}}
 				/>
-				<CardSuscription
-					title="Basico"
-					description="Contenido limitado, pero suficiente"
-					price="$2.99"
+				<MemberCard
+					member={{
+						name: "Mario Lozano",
+						date: "2024",
+						image: "/perfil1.webp"
+					}}
 				/>
-				<CardSuscription
-					title="Premium"
-					description="Contenido limitado, pero suficiente"
-					price="$3.99"
+				<MemberCard
+					member={{
+						name: "Gohan Gonzales",
+						date: "2024",
+						image: "/perfil1.webp"
+					}}
 				/>
 			</div>
 		</section>
@@ -71,7 +78,12 @@ import CardSuscription from "@/components/CardSuscription.astro";
 <style>
 	main {
 		margin: auto;
-		background-color: #ca3555;
+		background-image: url('public/background-1.webp');
+		background-size: cover;
+		background-position: center;
+    	background-repeat: no-repeat;
+		min-height:100vh;
+    	width: 100%; 
 		color: rgb(0, 0, 0);
 	}
 
@@ -80,14 +92,14 @@ import CardSuscription from "@/components/CardSuscription.astro";
 		display: flex;
 		justify-content: center;
 		flex-direction: column;
-		background-color: #f4f4f5;
+		background-color: #ffffff;
 	}
 
 	.inicio-recursos {
 		display: flex;
 		justify-content: center;
 		flex-direction: column;
-		background-color: #f4f4f5;
+		background-color: #ffffff;
 		width: auto;
 	}
 
@@ -113,19 +125,20 @@ import CardSuscription from "@/components/CardSuscription.astro";
 		padding: 5rem 0rem;
 	}
 
-	.inicio-planes {
+	.inicio-conocenos {
 		display: flex;
 		justify-content: center;
 		flex-direction: column;
-		background-color: #f4f4f5;
+		background-color: #ffffff;
 		width: auto;
 	}
 
-	.inicio-planes h2 {
+	.inicio-conocenos h2 {
 		font-size: 32px;
 		font-weight: 700;
 		margin: 0 auto;
 	}
+	
 	.planes-grid {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
@@ -135,6 +148,11 @@ import CardSuscription from "@/components/CardSuscription.astro";
 		padding:  5%;
 	}
 	@media (max-width: 768px) {
+		main {
+			background-size: contain; 
+			height: auto; 
+			padding: 2rem;
+    	}
 		.inicio-recursos-grid {
 			padding: 3rem 2rem; /* Ajuste del padding */
 		}
@@ -143,6 +161,12 @@ import CardSuscription from "@/components/CardSuscription.astro";
 		}
 	}
 	@media (max-width: 579px) {
+		main {
+			background-size: contain; 
+			background-position: top;
+			height: auto; 
+			padding: 1rem; 
+    	}
 		.inicio-recursos-grid {
 			padding: 2rem 1rem; /* Ajuste del padding para pantallas muy pequeñas */
 			grid-template-columns: 1fr; /* Una sola columna en pantallas móviles */
@@ -152,7 +176,11 @@ import CardSuscription from "@/components/CardSuscription.astro";
 		}
 	}
 	@media (min-width: 1200px) {
-		
+		main {
+			background-size: cover; 
+			background-position: center;
+			height: 90vh; 
+    	}
 		.inicio-recursos-grid {
 			max-width: 1200px; /* Máximo ancho de la cuadrícula en pantallas grandes */
 		}

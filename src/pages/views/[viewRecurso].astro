@@ -1,6 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import Pdf from "../../components/ui/pdfViewer";
+
 
 const { producto_id } = Astro.params;
 const url = new URL(Astro.request.url); // Accedemos a la URL completa
@@ -10,7 +10,8 @@ const tipo = url.searchParams.get("tipo");
 const area = url.searchParams.get("area");
 //const link = url.searchParams.get('url');
 
-const link = "/PsicofarmacologíaParaPsicólogos.pdf";
+const link = "https://drive.google.com/file/d/1_2-xkZq8KClTC71lPW2sGqrtnd9v5yv1/preview";
+
 ---
 
 <Layout title=`Recursos ${producto_id}`>
@@ -18,7 +19,14 @@ const link = "/PsicofarmacologíaParaPsicólogos.pdf";
         <div>
             <section class="clases_hero">
                 <div class="pdf-section">
-                    <Pdf link={link || ""} client:idle />
+                    <div class="iframe-container">
+                        <iframe
+                            src={link}
+                            style="width: 100%; height: 500px; border: none;"
+                            allowfullscreen
+                        ></iframe>
+                        <div class="watermark">Red Medical Advisor</div>  
+                    </div>
                 </div>
                 <div class="info-section">
                     <h2 class="document-title">{titulo}</h2>
@@ -60,6 +68,23 @@ const link = "/PsicofarmacologíaParaPsicólogos.pdf";
         width: 60%;
         display: flex;
         justify-content: center;
+    }
+
+    .iframe-container {
+        position: relative;
+        width: 100%;
+        height: 500px;
+    }
+
+    .watermark {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-45deg);
+        font-size: 40px;
+        color: rgba(0, 0, 0, 0.1);
+        font-weight: bold;
+        pointer-events: none; 
     }
 
     .info-section {
