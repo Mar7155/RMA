@@ -10,7 +10,7 @@ import MemberCard from "@/components/ui/cardMember";
 
 <Layout title="Red Medical Advisor.">
 	<main>
-		<section class="flex justify-center items-center px-20 py-40 w-auto text-white">
+		<section class="home">
 			<Home />
 		</section>
 		<section class="inicio-temas">
@@ -48,7 +48,7 @@ import MemberCard from "@/components/ui/cardMember";
 		</section>
 		<section id="conocenos" class="inicio-conocenos">
 			<h2>Conoceno a nuestro equipo</h2>
-			<div class="planes-grid">
+			<div class="conocenos-grid">
 				<MemberCard
 					member={{
 						name: "Abdiel Avila",
@@ -78,15 +78,22 @@ import MemberCard from "@/components/ui/cardMember";
 <style>
 	main {
 		margin: auto;
-		background-image: url('public/background-1.webp');
-		background-size: cover;
-		background-position: center;
-    	background-repeat: no-repeat;
 		min-height:100vh;
     	width: 100%; 
 		color: rgb(0, 0, 0);
 	}
 
+	.home{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 5rem;
+		width: auto;
+		background-image: url('/background-1.webp');
+      	background-size: cover;
+    	background-repeat: no-repeat;
+      	background-position: center;
+	}
 
 	.inicio-temas {
 		display: flex;
@@ -139,7 +146,7 @@ import MemberCard from "@/components/ui/cardMember";
 		margin: 0 auto;
 	}
 	
-	.planes-grid {
+	.conocenos-grid {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
 		gap: 2rem;
@@ -147,26 +154,25 @@ import MemberCard from "@/components/ui/cardMember";
 		margin-bottom: 10rem;
 		padding:  5%;
 	}
-	@media (max-width: 768px) {
-		main {
-			background-size: contain; 
-			height: auto; 
-			padding: 2rem;
-    	}
-		.inicio-recursos-grid {
-			padding: 3rem 2rem; /* Ajuste del padding */
-		}
-		.planes-grid{
+
+	@media (max-width: 1024px) {
+		.conocenos-grid{
 			grid-template-columns: repeat(2, 1fr);
 		}
 	}
+	@media (max-width: 768px) {
+		.inicio-recursos-grid {
+			padding: 3rem 2rem; /* Ajuste del padding */
+		}
+		
+		.conocenos-grid{
+			grid-template-columns: repeat(1, 1fr);
+		}
+	}
 	@media (max-width: 579px) {
-		main {
-			background-size: contain; 
-			background-position: top;
-			height: auto; 
-			padding: 1rem; 
-    	}
+		.home{
+			background-image: none;
+		}
 		.inicio-recursos-grid {
 			padding: 2rem 1rem; /* Ajuste del padding para pantallas muy pequeñas */
 			grid-template-columns: 1fr; /* Una sola columna en pantallas móviles */
@@ -176,11 +182,6 @@ import MemberCard from "@/components/ui/cardMember";
 		}
 	}
 	@media (min-width: 1200px) {
-		main {
-			background-size: cover; 
-			background-position: center;
-			height: 90vh; 
-    	}
 		.inicio-recursos-grid {
 			max-width: 1200px; /* Máximo ancho de la cuadrícula en pantallas grandes */
 		}

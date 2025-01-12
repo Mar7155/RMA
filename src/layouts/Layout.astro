@@ -1213,6 +1213,12 @@ const { title } = Astro.props;
     .video-grid {
       grid-template-columns: repeat(2, 1fr);
     }
+    .home-headline{
+      font-size: 40px;
+    }
+    .home-description{
+      font-size: 16px;
+    }
   }
 
   @media (max-width: 768px) {
@@ -1251,8 +1257,17 @@ const { title } = Astro.props;
   }
 
   @media (max-width: 600px) {
+    .home-section{
+      justify-content: center;
+    }
     .row-group {
       flex-direction: column;
+    }
+    .home-headline{
+      font-size: 32px;
+    }
+    .home-description{
+      font-size: 14px;
     }
   }
 </style>
