@@ -82,19 +82,31 @@ const Profile: React.FC = () => {
           </div>
         </div>*/}
 
-        <div className="input-group plan-group">
+        <div className="input-group tutoria-group">
           <div className="divider"></div>
-          <div className="plan-label-group">
             <div>
-              <label className="edit-label2">Plan</label>
-              <p className="example-text">{userDetails ? userDetails.plan : 'Cargando...'}</p>
+              <label className="edit-label">Tutorias</label>    
             </div>
-            <div className="value-group">
-              <button className="save-button bordered cancel-button" type="button">Cancelar</button>
-              <button className="confirm-button" type="submit">Cambiar plan</button>
-            </div>
+            <div className="tutoria-label-group">  
+                <div className="tutoria-card">
+                  <div className="tutoria-card-header">
+                    <p><strong>Fecha:</strong> 2024-12-16</p>
+                    <p><strong>Duración:</strong> 90 min</p>
+                    <p className="hour-label"><strong className='time-label'>Hora inicio:</strong> 17:30:00 <strong className='time-label-left'>Hora fin:</strong> 19:00:00</p>
+                  </div>
+                  <div className="tutoria-card-body">
+                    <p><strong>Tutor:</strong> Mario Lozano Marquez <strong className="area-label">Área:</strong> Anatomía</p>
+                  </div>
+                  <div className="tutoria-card-description">
+                    <p><strong>Descripción: </strong>quiero saber más a profundo del tema</p>
+                  </div>
+                  <div className="tutoria-card-status">
+                    <span className="status-label">En espera</span>
+                  </div>
+              </div>
           </div>
         </div>
+  
       </div>
     </section>
   );

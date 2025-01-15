@@ -1058,92 +1058,169 @@ const { title } = Astro.props;
   }
 
   .input-group {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
   }
 
   .full-width {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
   }
 
   .value-group {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
   }
 
   .edit-input {
-    width: 100%;
-    padding: 1rem;
-    border: 1px solid #dddfe2;
-    border-radius: 6px;
-    font-size: 1rem;
-    transition: 0.2s ease all;
+      width: 100%;
+      padding: 1rem;
+      border: 1px solid #dddfe2;
+      border-radius: 6px;
+      font-size: 1rem;
+      transition: 0.2s ease all;
   }
 
   .edit-input:focus {
-    outline: none;
-    border-color: #333;
-    box-shadow: 0 0 0 2px rgba(51, 51, 51, 0.2);
+      outline: none;
+      border-color: #333;
+      box-shadow: 0 0 0 2px rgba(51, 51, 51, 0.2);
   }
 
   .save-button {
-    background-color: white;
-    color: #333;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    padding: 1rem;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    transition:
-      background-color 0.3s ease,
-      border-color 0.3s ease;
+      background-color: white;
+      color: #333;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 1rem;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition:
+          background-color 0.3s ease,
+          border-color 0.3s ease;
   }
 
   .save-button.bordered {
-    border: 1px solid #dddfe2;
+      border: 1px solid #dddfe2;
   }
 
   .save-button:hover {
-    background-color: #e6e6e6;
+      background-color: #e6e6e6;
   }
 
   .save-button.bordered.cancel-button {
-    background-color: #ff3131;
-    color: white;
-    font-weight: bold;
-    border: 1px solid #ff3131;
+      background-color: #ff3131;
+      color: white;
+      font-weight: bold;
+      border: 1px solid #ff3131;
   }
 
   .save-button.bordered.cancel-button:hover {
-    background-color: #e63030;
-    border-color: #e63030;
+      background-color: #e63030;
+      border-color: #e63030;
   }
 
   .divider {
-    height: 1px;
-    background-color: #333;
-    margin: 2rem 0;
-    width: 100%;
+      height: 1px;
+      background-color: #333;
+      margin: 2rem 0;
+      width: 100%;
   }
 
-  .plan-group {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
+  .tutoria-group {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
   }
 
-  .plan-label-group {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  .tutoria-label-group {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+  }
+
+  .tutoria-card {
+    position: relative;
     width: 100%;
+    max-width: 100%; 
+    border: 1px solid #e0e0e0;
+    border-radius: 30px;
+    padding: 16px;
+    margin-top: 4px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .tutoria-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  }
+
+  .tutoria-card-header p {
+      margin: 4px 0;
+  }
+
+  .tutoria-card-body p {
+      margin: 4px 0;
+      word-wrap: break-word; 
+  }
+
+  .tutoria-card-description p {
+    margin: 6px 0;
+  }
+
+  .hour-label {
+    color: #807e7e;
+  }
+
+  .time-label {
+    color: #807e7e; 
+    margin-bottom: 8px;
+  }
+
+  .time-label-left {
+    color: #807e7e;
+    margin-left: 10px; 
+    margin-bottom: 8px;
+  }
+
+  .area-label {
+    margin-left: 10px; 
+    margin-bottom: 8px;
+  }
+
+  .tutoria-card-status {
+      position: absolute;
+      top: 8px;
+      right: 16px;
+      display: flex;
+      justify-content: flex-start;
+      margin-top: 8px;
+  }
+
+  .status-label {
+      background-color: #ffbd14;
+      color: #000000;
+      padding: 8px 16px;
+      border-radius: 43px;
+      font-size: 14px;
+      font-weight: bold;
+      transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .status-label:hover {
+      background-color: #ffc929;
+      color: #000000;
   }
 
   .example-text {
