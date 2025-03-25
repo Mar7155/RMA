@@ -80,7 +80,6 @@ const Recursos: React.FC<{ id: string }> = () => {
 
         setTipoFilters(initialTipoFilters);
       } catch (error) {
-        console.error("Error al cargar los tipos:", error);
         setError("Error al cargar los tipos.");
       }
     };
